@@ -349,7 +349,7 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 		let di_up = (first)?"displayed":"updated";
 
 			if(fuc || tempUnitVar)
-			{			
+			{
 			this.forecast = this.loadForecast();							this.status(this.forecast.length+" forecast");
 			}
 
@@ -578,7 +578,7 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 		this.UI.menuIcon = new St.Icon(
 		{
 		icon_name: 'weather-clear'+this.icon_type(),
-		style_class: 'system-status-icon weather-icon' + 
+		style_class: 'system-status-icon weather-icon' +
 		(Main.panel.actor.get_text_direction() == Clutter.TextDirection.RTL ? '-rtl' : '')
 		});												this.status("UI.menuIcon created");
 
@@ -619,17 +619,17 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 		this.UI.current = new St.Bin({style_class: 'current'});						this.status("UI.current created");
 		this.UI.forecast = new St.Bin({style_class: 'forecast'});					this.status("UI.forecast created");
 		this.UI.attribution = new St.Bin({style_class: 'attribution'});					this.status("UI.attribution created");
-		
+
 		this.menu.box.add(this.UI.current);								this.status("UI.current added to menu");
 
 		item = new PopupMenu.PopupSeparatorMenuItem();
 		this.menu.addMenuItem(item);									this.status("Added separator");
-		
+
 		this.menu.box.add(this.UI.forecast);
 
 		item = new PopupMenu.PopupSeparatorMenuItem();							this.status("UI.forecast added to menu");
 		this.menu.addMenuItem(item);									this.status("Added separator");
-		
+
 		this.menu.box.add(this.UI.attribution);								this.status("UI.attribution added to menu");
 		this.UI.attribution.hide();
 
@@ -863,15 +863,15 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 		this.UI.currentSunset = new St.Label({ text: '-' });
 		this.UI.currentBuild = new St.Label({ text: '-' });
 
-		let ab = new St.BoxLayout({	
-		style_class: 'weather-current-infobox'	
+		let ab = new St.BoxLayout({
+		style_class: 'weather-current-infobox'
 		});
 
 		ab.add_actor(this.UI.sunriseIcon);
 		ab.add_actor(this.UI.currentSunrise);
-		ab.add_actor(this.UI.sunsetIcon);	
+		ab.add_actor(this.UI.sunsetIcon);
 		ab.add_actor(this.UI.currentSunset);
-		ab.add_actor(this.UI.buildIcon);	
+		ab.add_actor(this.UI.buildIcon);
 		ab.add_actor(this.UI.currentBuild);
 		bb.add_actor(ab);
 
@@ -1051,7 +1051,7 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 
 					for(let j = 0; this.UI.forecastItems[j]; j++)
 					{
-						if(j > 2)				
+						if(j > 2)
 						this.UI.forecastBox.hscroll.show();
 					columnBox.add_actor(this.UI.forecastItems[j].box);
 					}
@@ -1150,7 +1150,7 @@ const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension settin
 			let arrows = ['', _('VAR')+' ', "\u2193 ", "\u2199 ", "\u2199 ", "\u2199 ", "\u2190 ", "\u2196 ", "\u2196 ", "\u2196 ",
 				     "\u2191 ", "\u2197 ", "\u2197 ", "\u2197 ", "\u2192 ", "\u2198 ", "\u2198 ", "\u2198 ", ('-')+' '];
 
-			let letters = ['', _('VAR')+' ', _('N')+' ', _('NNE')+' ', _('NE')+' ', _('ENE')+' ', _('E')+' ', _('ESE')+' ', _('SE')+' ', _('SSE')+' ', 
+			let letters = ['', _('VAR')+' ', _('N')+' ', _('NNE')+' ', _('NE')+' ', _('ENE')+' ', _('E')+' ', _('ESE')+' ', _('SE')+' ', _('SSE')+' ',
 				      _('S')+' ', _('SSW')+' ', _('SW')+' ', _('WSW')+' ', _('W')+' ', _('WNW')+' ', _('NW')+' ', _('NNW')+' ', ('-')+' '];
 
 			return (that.wind_direction)?arrows[d]:letters[d];
