@@ -26,36 +26,39 @@
  *
  */
 
-const Gtk = imports.gi.Gtk;
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-const GtkBuilder = Gtk.Builder;
-const Gio = imports.gi.Gio;
 const Gettext = imports.gettext.domain('gnome-shell-extension-weather');
 const _ = Gettext.gettext;
-const Soup = imports.gi.Soup;
+const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
+const GObject = imports.gi.GObject;
+const Gtk = imports.gi.Gtk;
+const GtkBuilder = Gtk.Builder;
 const GWeather = imports.gi.GWeather;
+const Soup = imports.gi.Soup;
 
-const Lang = imports.lang;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 const EXTENSIONDIR = Me.dir.get_path();
+const Lang = imports.lang;
 
-const WEATHER_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.weather';
+// Settings
 const WEATHER_GWEATHER_SETTINGS_SCHEMA = 'org.gnome.GWeather';
-const WEATHER_TEMPERATURE_UNIT_KEY = 'temperature-unit';                        // GWeather setting
-const WEATHER_SPEED_UNIT_KEY = 'speed-unit';                                    // GWeather setting
-const WEATHER_PRESSURE_UNIT_KEY = 'pressure-unit';                              // GWeather setting
-const WEATHER_DISTANCE_UNIT_KEY = 'distance-unit';                              // GWeather setting
-const WEATHER_CITY_KEY = 'city';                                                // Weather extension setting
-const WEATHER_ACTUAL_CITY_KEY = 'actual-city';                                  // Weather extension setting
-const WEATHER_USE_SYMBOLIC_ICONS_KEY = 'use-symbolic-icons';                    // Weather extension setting
-const WEATHER_SHOW_TEXT_IN_PANEL_KEY = 'show-text-in-panel';                    // Weather extension setting
-const WEATHER_POSITION_IN_PANEL_KEY = 'position-in-panel';                      // Weather extension setting
-const WEATHER_SHOW_COMMENT_IN_PANEL_KEY = 'show-comment-in-panel';              // Weather extension setting
-const WEATHER_WIND_DIRECTION_KEY = 'wind-direction';                            // Weather extension setting
-const WEATHER_DEBUG_EXTENSION = 'debug-extension';                              // Weather extension setting
+const WEATHER_SETTINGS_SCHEMA = 'org.gnome.shell.extensions.weather';
+// GWeather settings
+const WEATHER_DISTANCE_UNIT_KEY = 'distance-unit';
+const WEATHER_PRESSURE_UNIT_KEY = 'pressure-unit';
+const WEATHER_SPEED_UNIT_KEY = 'speed-unit';
+const WEATHER_TEMPERATURE_UNIT_KEY = 'temperature-unit';
+// Weather extension settings
+const WEATHER_ACTUAL_CITY_KEY = 'actual-city';
+const WEATHER_CITY_KEY = 'city';
+const WEATHER_DEBUG_EXTENSION = 'debug-extension';
+const WEATHER_POSITION_IN_PANEL_KEY = 'position-in-panel';
+const WEATHER_SHOW_COMMENT_IN_PANEL_KEY = 'show-comment-in-panel';
+const WEATHER_SHOW_TEXT_IN_PANEL_KEY = 'show-text-in-panel';
+const WEATHER_USE_SYMBOLIC_ICONS_KEY = 'use-symbolic-icons';
+const WEATHER_WIND_DIRECTION_KEY = 'wind-direction';
 
 const WeatherPrefsWidget = new GObject.Class({
     Name: 'WeatherExtension.Prefs.Widget',
