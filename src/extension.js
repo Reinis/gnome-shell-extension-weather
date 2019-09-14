@@ -32,6 +32,8 @@
  *
  */
 
+'use strict';
+
 // Init const //
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
