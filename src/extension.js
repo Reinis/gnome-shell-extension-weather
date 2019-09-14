@@ -550,10 +550,8 @@ const Weather = GObject.registerClass(
             topBox.add_actor(this.UI.menuConditions);
             this.actor.add_actor(topBox);
 
-            let dummyBox = new St.BoxLayout();
-            this.actor.reparent(dummyBox);
-            dummyBox.remove_actor(this.actor);
-            dummyBox.destroy();
+            // Remove actor from parent before inserting in a panel box
+            this.actor.get_parent().remove_actor(this.actor)
 
             let children = null;
             switch (this.position_in_panel) {
