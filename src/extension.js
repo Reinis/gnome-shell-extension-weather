@@ -36,7 +36,6 @@
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('gnome-shell-extension-weather');
 const _ = Gettext.gettext;
 const Gio = imports.gi.Gio;
@@ -1158,7 +1157,7 @@ const Weather = GObject.registerClass(
 
         loadConfig() {
             let that = this;
-            this.settings = Convenience.getSettings(WEATHER_SETTINGS_SCHEMA);
+            this.settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
             this.settingsC = this.settings.connect(
                 "changed",
                 function() {                                                    that.status("**** SETTING CHANGED ("+arguments[1]+") ****");
@@ -1170,7 +1169,7 @@ const Weather = GObject.registerClass(
 
         loadGWeatherConfig() {
             let that = this;
-            this.GWeatherSettings = Convenience.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
+            this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
             this.GWeatherSettingsC = this.GWeatherSettings.connect(
                 "changed",
                 function() {                                                    that.status("**** GWEATHER SETTING CHANGED ("+arguments[1]+")  ****");
@@ -1182,7 +1181,7 @@ const Weather = GObject.registerClass(
 
         loadInterfaceConfig() {
             let that = this;
-            this.InterfaceSettings = Convenience.getSettings("org.gnome.desktop.interface");
+            this.InterfaceSettings = ExtensionUtils.getSettings("org.gnome.desktop.interface");
             this.InterfaceSettingsC = this.InterfaceSettings.connect(
                 "changed",
                 function() {                                                    that.status("**** INTERFACE SETTING CHANGED ("+arguments[1]+")  ****");
@@ -1452,8 +1451,7 @@ const Weather = GObject.registerClass(
 let weather;
 
 function init() {
-    // Use convenience translations //
-    Convenience.initTranslations('gnome-shell-extension-weather');
+    ExtensionUtils.initTranslations('gnome-shell-extension-weather');
 }
 
 function enable() {
