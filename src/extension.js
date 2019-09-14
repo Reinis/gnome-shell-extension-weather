@@ -538,7 +538,7 @@ const Weather = GObject.registerClass(
 
             // Panel icon
             this.UI.menuIcon = new St.Icon({
-                icon_name: 'weather-clear'+this.icon_type(),
+                icon_name: 'weather-clear' + this.icon_type(),
                 style_class: 'system-status-icon weather-icon' +
                     (Main.panel.actor.get_text_direction() == Clutter.TextDirection.RTL ? '-rtl' : '')
             });                                                                 this.status("UI.menuIcon created");
@@ -600,7 +600,7 @@ const Weather = GObject.registerClass(
             this.menu.addMenuItem(item);                                        this.status("Added separator");
 
             this.UI.locationSelector = new PopupMenu.PopupSubMenuMenuItem(_("Locations"));
-            this.status("UI.locationSelector created");
+                                                                                this.status("UI.locationSelector created");
             this.menu.addMenuItem(this.UI.locationSelector);                    this.status("UI.locationSelector added to menu");
             this.rebuildLocationSelectorItem();                                 this.status("Location selector builded");
 
@@ -633,7 +633,7 @@ const Weather = GObject.registerClass(
             let oldPosition = this.past.position_in_panel;
 
             if (this.variation("position_in_panel")) {
-                    switch (oldPosition) {
+                switch (oldPosition) {
                     case 0:
                         Main.panel._centerBox.remove_actor(this.actor);         this.status("Removed panel icon from center box");
                         break;
@@ -937,16 +937,19 @@ const Weather = GObject.registerClass(
 
             let action = new Clutter.PanAction({ interpolate: true });
 
-            action.connect('pan', function(act){
-                let [dist, dx, dy] = act.get_motion_delta(0);
+            action.connect(
+                'pan',
+                function(act) {
+                    let [dist, dx, dy] = act.get_motion_delta(0);
 
-                scrollTo(
-                    that.UI.forecastBox.hscroll,
-                    -1 * (dx / that.UI.forecastBox.width) * that.UI.forecastBox.hscroll.adjustment.page_size
-                );
+                    scrollTo(
+                        that.UI.forecastBox.hscroll,
+                        -1 * (dx / that.UI.forecastBox.width) * that.UI.forecastBox.hscroll.adjustment.page_size
+                    );
 
-                return false;
-            });
+                    return false;
+                }
+            );
 
             this.UI.forecastBox.add_action(action);
 
