@@ -177,7 +177,7 @@ const Weather = GObject.registerClass(
 
             if (this.city_name) {
                 this.timer = Mainloop.timeout_add_seconds(
-                    30,
+                    300,
                     Lang.bind(
                         this,
                         function() {
