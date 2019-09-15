@@ -892,7 +892,7 @@ const Weather = GObject.registerClass(
             let that = this;
 
             if (!n) {
-                is.UI.forecast.set_child(new St.Label({ text: _('No forecast information') }));
+                this.UI.forecast.set_child(new St.Label({ text: _('No forecast information') }));
                 return 0;
             }
 
