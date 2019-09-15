@@ -488,7 +488,28 @@ let Weather = class Weather extends PanelMenu.Button {
             oldDate = nowDate;
         }
 
-        // TODO: Move function definitions out of the loop
+        let div_length = function(div) {
+            let divLength = 0;
+
+            for (let i in div)
+                divLength++;
+
+            return divLength;
+        }
+
+        let getIconName = function(div) {
+            let middle = Math.floor(div_length(div) / 2);
+            let i = 0;
+
+            for (let hour in div) {
+                if (i == middle)
+                    return div[hour].get_icon_name();
+                i++
+            }
+
+            return "";
+        };
+
         for (let i in forecast) {
             let div = [[],[],[],[]];
 
@@ -502,28 +523,6 @@ let Weather = class Weather extends PanelMenu.Button {
                 else if (x >= 18 && x <= 23)
                     div[3][x] = forecast[i].hour[x];
             }
-
-            let div_length = function(div) {
-                let divLength = 0;
-
-                for (let i in div)
-                    divLength++;
-
-                return divLength;
-            }
-
-            let getIconName = function(div) {
-                let middle = Math.floor(div_length(div) / 2);
-                let i = 0;
-
-                for (let hour in div) {
-                    if (i == middle)
-                        return div[hour].get_icon_name();
-                    i++
-                }
-
-                return "";
-            };
 
             if (div_length(div[2])) {                                           this.status(i+", Afternoon");
                 forecast[i].icon = getIconName(div[2]);                         this.status("Loaded "+forecast[i].icon+" icon");
