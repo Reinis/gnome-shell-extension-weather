@@ -336,6 +336,10 @@ const Weather = GObject.registerClass(
 
             if (fuc || tempUnitVar) {
                 this.forecast = this.loadForecast();                            this.status(this.forecast.length+" forecast");
+                if (this.forecast.length == 0) {
+                    // Failed to get forecast
+                    return 1;
+                }
             }
 
             if (fuc) {
@@ -436,6 +440,11 @@ const Weather = GObject.registerClass(
             let nowDate = {};
 
             let forecastList = this.info.get_forecast_list();                   this.status("Forecast list loaded ("+forecastList.length+")");
+
+            if (forecastList.length == 0) {
+                // Failed to get forecast
+                return [];
+            }
 
             oldDate = GLib.DateTime.new_from_unix_local(forecastList[0].get_value_update()[1]).to_timezone(this.get_timezone());
 
