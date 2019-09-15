@@ -454,7 +454,8 @@ const Weather = GObject.registerClass(
 
                 nowDate = GLib.DateTime.new_from_unix_local(forecastList[i].get_value_update()[1]).to_timezone(this.get_timezone());
 
-                if (forecastList[i-1] != "undefined"
+                if (i > 1
+                    && forecastList[i-1] != "undefined"
                     && (oldDate.get_day_of_month() != nowDate.get_day_of_month())) {                                                                           this.status("+1 day");
                     day++;
                 }
@@ -1029,11 +1030,12 @@ const Weather = GObject.registerClass(
             let columnBox = new St.BoxLayout();
             box.set_child(columnBox);
 
-            for (let j = 0; this.UI.forecastItems[j]; j++) {
-                if (j > 2)
-                    this.UI.forecastBox.hscroll.show();
+            for (let j = 0; j < n; j++) {
                 columnBox.add_actor(this.UI.forecastItems[j].box);
             }
+
+            if (n > 2)
+                this.UI.forecastBox.hscroll.show();
 
             let cont = new St.BoxLayout();
             cont.add_actor(box);
