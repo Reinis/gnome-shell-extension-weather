@@ -35,6 +35,7 @@
 'use strict';
 
 // Init const //
+const Config = imports.misc.config;
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
@@ -72,11 +73,17 @@ const WEATHER_SHOW_TEXT_IN_PANEL_KEY = 'show-text-in-panel';
 const WEATHER_USE_SYMBOLIC_ICONS_KEY = 'use-symbolic-icons';
 const WEATHER_WIND_DIRECTION_KEY = 'wind-direction';
 
-// Init Weather class //
-const Weather = GObject.registerClass(
-    class Weather extends PanelMenu.Button {
+// Init Weather class
+let Weather = class Weather extends PanelMenu.Button {
 
         _init() {
+            let menuAlignment = 0.25;
+            if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
+                menuAlignment = 1.0 - menuAlignment;
+
+            super._init(menuAlignment, 'Weather Indicator', false);             this.status("Weather panel menu button initialized");
+                                                                                this.status("Menu alignment = " + menuAlignment);
+
             this.variation("temperature_units");
             this.variation("speed_units");
             this.variation("distance_units");
@@ -91,15 +98,8 @@ const Weather = GObject.registerClass(
             this.variation("wind_direction");
             this.variation("debug");                                            this.status("Initialized GWeather");
 
-            let menuAlignment = 0.25;
-            if (Clutter.get_default_text_direction() == Clutter.TextDirection.RTL)
-                menuAlignment = 1.0 - menuAlignment;
-
-            this.status("Menu alignment = " + menuAlignment);
-            super._init(menuAlignment);                                         this.status("Weather panel menu button initialized");
             this.initUI();
             this.start();
-            return 0;
         }
 
         variation(variable, keep) {
@@ -539,6 +539,15 @@ const Weather = GObject.registerClass(
             return forecast;
         }
 
+        get_panel_positions(n) {
+            let positions = {
+                0: ['center', Main.panel._centerBox.get_children().length],
+                1: ['right', 0],
+                2: ['left', Main.panel._leftBox.get_children().length],
+            };
+            return positions[n];
+        }
+
         initUI() {
             this.UI = {};
 
@@ -559,30 +568,6 @@ const Weather = GObject.registerClass(
             topBox.add_actor(this.UI.menuIcon);
             topBox.add_actor(this.UI.menuConditions);
             this.actor.add_actor(topBox);
-
-            // Remove actor from parent before inserting in a panel box
-            this.actor.get_parent().remove_actor(this.actor)
-
-            let children = null;
-            switch (this.position_in_panel) {
-                case 0:
-                    children = Main.panel._centerBox.get_children();
-                    Main.panel._centerBox.insert_child_at_index(this.actor, children.length);
-                                                                                this.status("Panel icon inserted in center box");
-                    break;
-
-                case 1:
-                    children = Main.panel._rightBox.get_children();
-                    Main.panel._rightBox.insert_child_at_index(this.actor, 0);
-                                                                                this.status("Panel icon inserted in right box");
-                    break;
-
-                case 2:
-                    children = Main.panel._leftBox.get_children();
-                    Main.panel._leftBox.insert_child_at_index(this.actor, children.length);
-                                                                                this.status("Panel icon inserted in left box");
-                    break;
-            }
 
             Main.panel.menuManager.addMenu(this.menu);                          this.status("menu added to menu manager (panel)");
 
@@ -642,33 +627,20 @@ const Weather = GObject.registerClass(
             let oldPosition = this.past.position_in_panel;
 
             if (this.variation("position_in_panel")) {
-                switch (oldPosition) {
-                    case 0:
-                        Main.panel._centerBox.remove_actor(this.actor);         this.status("Removed panel icon from center box");
-                        break;
-                    case 1:
-                        Main.panel._rightBox.remove_actor(this.actor);          this.status("Removed panel icon from right box");
-                        break;
-                    case 2:
-                        Main.panel._leftBox.remove_actor(this.actor);           this.status("Removed panel icon from left box");
-                        break;
-                }
+                // Remove actor from parent before inserting in a panel box
+                this.actor.get_parent().remove_actor(this.actor);               this.status("Removed panel icon");
 
-                let children = null;
                 switch (this.position_in_panel) {
                     case 0:
-                        children = Main.panel._centerBox.get_children();
-                        Main.panel._centerBox.insert_child_at_index(this.actor, children.length);
+                        Main.panel._centerBox.insert_child_at_index(this.actor, this.get_panel_positions(0)[1]);
                                                                                 this.status("Panel icon inserted in center box");
                         break;
                     case 1:
-                        children = Main.panel._rightBox.get_children();
-                        Main.panel._rightBox.insert_child_at_index(this.actor, 0);
+                        Main.panel._rightBox.insert_child_at_index(this.actor, this.get_panel_positions(1)[1]);
                                                                                 this.status("Panel icon inserted in right box");
                         break;
                     case 2:
-                        children = Main.panel._leftBox.get_children();
-                        Main.panel._leftBox.insert_child_at_index(this.actor, children.length);
+                        Main.panel._leftBox.insert_child_at_index(this.actor, this.get_panel_positions(2)[1]);
                                                                                 this.status("Panel icon inserted in left box");
                         break;
                 }
@@ -1457,26 +1429,45 @@ const Weather = GObject.registerClass(
             return 0;
         }
     }
-);
 
-let weather;
+// Gnome Shell version compatibility check
+let shellMinorVersion = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
+
+if (shellMinorVersion > 30) {
+    Weather = GObject.registerClass(
+        {GTypeName: 'Weather'},
+        Weather
+    );
+}
+
+let weather = null;
 
 function init() {
     ExtensionUtils.initTranslations('gnome-shell-extension-weather');
 }
 
 function enable() {
-    // Create weather //
+    log(`Enabling "${Me.metadata.uuid}"`);
+
+    // Create weather
     weather = new Weather();
 
-    // Add weather to status area //
-    Main.panel.addToStatusArea('weather', weather);
+    // Add to panel
+    let position_in_panel = weather.get_panel_positions(weather.position_in_panel)[0];
+    let position_in_box = weather.get_panel_positions(weather.position_in_panel)[1];
+
+    Main.panel.addToStatusArea('weather', weather, position_in_box, position_in_panel);
 }
 
 function disable() {
-    // Stop weather //
-    weather.stop();
+    log(`Disabling "${Me.metadata.uuid}"`);
 
-    // Remove weather from status area //
-    weather.destroy();
+    if (weather !== null) {
+        // Stop weather
+        weather.stop();
+
+        // Remove weather from panel
+        weather.destroy();
+        weather = null;
+    }
 }
