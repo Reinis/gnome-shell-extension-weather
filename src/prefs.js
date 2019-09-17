@@ -26,6 +26,8 @@
  *
  */
 
+ 'use strict';
+
 const Gettext = imports.gettext.domain('gnome-shell-extension-weather');
 const _ = Gettext.gettext;
 const Gio = imports.gi.Gio;
