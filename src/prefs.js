@@ -96,7 +96,7 @@ const WeatherPrefsWidget = new GObject.Class({
 
     initWindow : function() {                                                   this.status("Init window");
         let that = this;
-        mCities = [];
+        this.mCities = [];
 
         this.Window.add_from_file(EXTENSIONDIR + "/weather-settings.ui");       this.status("Weather Settings UI loaded");
 
@@ -175,11 +175,11 @@ const WeatherPrefsWidget = new GObject.Class({
         this.Window.get_object("tree-toolbutton-remove").sensitive = Boolean(cities.length);
                                                                                 this.status("Remove button sensitivity added");
 
-        let citiesVariation = !!(cities.length - mCities.length);
+        let citiesVariation = !!(cities.length - this.mCities.length);
 
         if (!citiesVariation) {
             for (let i = 0; i < cities.length; i++) {
-                if (!cities[i].equal(mCities[i]))
+                if (!cities[i].equal(this.mCities[i]))
                     citiesVariation = true;
             }
         }
@@ -199,7 +199,7 @@ const WeatherPrefsWidget = new GObject.Class({
                 }
             }
 
-            mCities = cities;                                                   this.status("City list refreshed");
+            this.mCities = cities;                                              this.status("City list refreshed");
         }
 
         this.changeSelection();
