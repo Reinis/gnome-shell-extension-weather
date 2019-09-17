@@ -300,12 +300,12 @@ let Weather = class Weather extends PanelMenu.Button {
             return 0;
         }
 
-        let getConditions = (info) => {
+        function getConditions(info) {
             let conditions = info.get_conditions();
             if (conditions == "-")
                 conditions = info.get_sky();
             return conditions;
-        };
+        }
 
         let getMenuConditions = (info) => {
             let conditions = "";
@@ -445,7 +445,7 @@ let Weather = class Weather extends PanelMenu.Button {
         let initialTemp = 0;
         let actualDate = GLib.DateTime.new_now_local();
 
-        let dayName = function(aD, nD) {
+        function dayName(aD, nD) {
             let oneDay = 86400;
             let today = GLib.DateTime.new_local(aD.get_year(), aD.get_month(), aD.get_day_of_month(), 0, 0, 0);
             today = (today.to_unix()+(aD.get_utc_offset()/1000000));
@@ -470,7 +470,7 @@ let Weather = class Weather extends PanelMenu.Button {
                 dN = _("Yesterday");
 
             return dN;
-        };
+        }
 
         let oldDate = {};
         let nowDate = {};
@@ -524,7 +524,7 @@ let Weather = class Weather extends PanelMenu.Button {
             oldDate = nowDate;
         }
 
-        let div_length = function(div) {
+        function div_length(div) {
             let divLength = 0;
 
             for (let i in div)
@@ -533,7 +533,7 @@ let Weather = class Weather extends PanelMenu.Button {
             return divLength;
         }
 
-        let getIconName = function(div) {
+        function getIconName(div) {
             let middle = Math.floor(div_length(div) / 2);
             let i = 0;
 
@@ -544,7 +544,7 @@ let Weather = class Weather extends PanelMenu.Button {
             }
 
             return "";
-        };
+        }
 
         for (let i in forecast) {
             let div = [[],[],[],[]];
@@ -922,9 +922,9 @@ let Weather = class Weather extends PanelMenu.Button {
         this.UI.forecastBox.vscrollbar_policy = Gtk.PolicyType.NEVER;
         this.UI.forecastBox.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC;
 
-        let scrollTo = (scroller, v) => {
+        function scrollTo(scroller, v) {
             scroller.adjustment.value += v;
-        };
+        }
 
         let onScroll = (actor, event) => {
             let dx = 0;
