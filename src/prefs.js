@@ -28,6 +28,7 @@
 
  'use strict';
 
+const Config = imports.misc.config;
 const Gettext = imports.gettext.domain('gnome-shell-extension-weather');
 const _ = Gettext.gettext;
 const Gio = imports.gi.Gio;
@@ -36,12 +37,10 @@ const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const GtkBuilder = Gtk.Builder;
 const GWeather = imports.gi.GWeather;
-const Soup = imports.gi.Soup;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const EXTENSIONDIR = Me.dir.get_path();
-const Lang = imports.lang;
 
 // Settings
 const WEATHER_GWEATHER_SETTINGS_SCHEMA = 'org.gnome.GWeather';
@@ -61,19 +60,19 @@ const WEATHER_SHOW_TEXT_IN_PANEL_KEY = 'show-text-in-panel';
 const WEATHER_USE_SYMBOLIC_ICONS_KEY = 'use-symbolic-icons';
 const WEATHER_WIND_DIRECTION_KEY = 'wind-direction';
 
-const WeatherPrefsWidget = new GObject.Class({
-    Name: 'WeatherExtension.Prefs.Widget',
-    GTypeName: 'WeatherExtensionPrefsWidget',
-    Extends: Gtk.Box,
+let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
 
-    _init: function(params) {
-        this.parent(params);
+    _init(params) {
+        super._init(params);
+        this.x = [0, 1];
+        this.y = [0, 1];
+        this.configWidgets = [];
         this.initWindow();
         this.refreshUI();
         this.add(this.MainWidget);
-    },
+    }
 
-    status : function() {
+    status() {
         if (typeof this.logfile == "undefined") {
             this.logfile = Gio.file_new_for_path(GLib.get_user_cache_dir() + "/weather-extension-prefs.log");
             if (this.logfile.query_exists(null))
@@ -90,16 +89,17 @@ const WeatherPrefsWidget = new GObject.Class({
             fileOutput.write("[" + new Date().toString() + "] " + arguments[0] + "\n", null);
         fileOutput.close(null);
         return 0;
-    },
+    }
 
-    Window : new Gtk.Builder(),
+    get world() {
+        return GWeather.Location.get_world();
+    }
 
-    world : GWeather.Location.get_world(),
-
-    initWindow : function() {                                                   this.status("Init window");
+    initWindow() {                                                              this.status("Init window");
         let that = this;
         this.mCities = [];
 
+        this.Window = new Gtk.Builder();
         this.Window.add_from_file(EXTENSIONDIR + "/weather-settings.ui");       this.status("Weather Settings UI loaded");
 
         this.MainWidget = this.Window.get_object("main-widget");
@@ -164,9 +164,9 @@ const WeatherPrefsWidget = new GObject.Class({
         this.addSwitch("comment_in_panel");
         this.addLabel(_("Debug the extension"));
         this.addSwitch("debug");                                                this.status("All widget added");
-    },
+    }
 
-    refreshUI : function() {                                                    this.status("Refresh UI");
+    refreshUI() {                                                               this.status("Refresh UI");
         this.MainWidget = this.Window.get_object("main-widget");
         this.treeview = this.Window.get_object("tree-treeview");
         this.liststore = this.Window.get_object("liststore");
@@ -216,24 +216,18 @@ const WeatherPrefsWidget = new GObject.Class({
                 config[i][0].active = this[config[i][1]];                       this.status(config[i][1]+" changed to "+this[config[i][1]]);
             }                                                                   this.status("UI refreshed");
         }
-    },
+    }
 
-    initConfigWidget : function() {
+    initConfigWidget() {
         this.configWidgets.splice(0, this.configWidgets.length);
         this.inc(1);
         let a = this.Window.get_object("right-widget-table");
         a.visible = 1;
         a.can_focus = 0;
         this.right_widget = a;
-    },
+    }
 
-    x : [0, 1],
-
-    y : [0, 1],
-
-    configWidgets : [],
-
-    inc : function() {
+    inc() {
         if (arguments[0]) {
             this.x[0] = 0;
             this.x[1] = 1;
@@ -253,17 +247,17 @@ const WeatherPrefsWidget = new GObject.Class({
             this.x[1] += 1;
             return 0;
         }
-    },
+    }
 
-    addLabel : function(text) {
+    addLabel(text) {
         let l = new Gtk.Label({label:text,xalign:0});
         l.visible = 1;
         l.can_focus = 0;
         this.right_widget.attach(l, this.x[0], this.x[1], this.y[0], this.y[1], 0, 0, 0, 0);
         this.inc();
-    },
+    }
 
-    addComboBox : function(a, b) {
+    addComboBox(a, b) {
         let that = this;
         let cf = new Gtk.ComboBoxText();
         this.configWidgets.push([cf, b]);
@@ -288,9 +282,9 @@ const WeatherPrefsWidget = new GObject.Class({
         this.right_widget.attach(cf, this.x[0], this.x[1], this.y[0], this.y[1], 0, 0, 0, 0);
         this.inc();                                                             this.status("Added comboBox("+(this.configWidgets.length-1)+") "+b+" active_id : "+this[b]);
         return 0;
-    },
+    }
 
-    addSwitch : function(a) {
+    addSwitch(a) {
         let that = this;
         let sw = new Gtk.Switch();
         this.configWidgets.push([sw, a]);
@@ -305,9 +299,9 @@ const WeatherPrefsWidget = new GObject.Class({
         );
         this.right_widget.attach(sw, this.x[0], this.x[1], this.y[0], this.y[1], 0, 0, 0, 0);
         this.inc();
-    },
+    }
 
-    selectionChanged : function(select) {
+    selectionChanged(select) {
         let a = select.get_selected_rows()[0][0];
 
         if (typeof a != "undefined") {                                          this.status("Selection changed to "+a.to_string());
@@ -315,9 +309,9 @@ const WeatherPrefsWidget = new GObject.Class({
                 this.actual_city = parseInt(a.to_string());                     this.status("Actual city changed to "+this.actual_city);
             }
         }
-    },
+    }
 
-    addCity : function() {
+    addCity() {
         let that = this;
         let textDialog = _("Name of the city");
         let dialog = new Gtk.Dialog({title : ""});
@@ -367,9 +361,9 @@ const WeatherPrefsWidget = new GObject.Class({
         );
 
         dialog.show_all();
-    },
+    }
 
-    removeCity : function() {
+    removeCity() {
         let that = this;
         let locations = this.city;
         // TODO: Move this after the check
@@ -416,18 +410,18 @@ const WeatherPrefsWidget = new GObject.Class({
 
         dialog.show_all();
         return 0;
-    },
+    }
 
-    changeSelection : function() {
+    changeSelection() {
         let path = this.actual_city;
         if (typeof arguments[0] != "undefined")
             path = arguments[0];
                                                                                 this.status("Change selection to "+path);
         path = Gtk.TreePath.new_from_string(String(path));
         this.treeview.get_selection().select_path(path);
-    },
+    }
 
-    loadConfig : function() {
+    loadConfig() {
         let that = this;
         this.Settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
         this.Settings.connect(
@@ -437,9 +431,9 @@ const WeatherPrefsWidget = new GObject.Class({
                 that.refreshUI();
             }
         );
-    },
+    }
 
-    loadGWeatherConfig : function() {
+    loadGWeatherConfig() {
         let that = this;
         this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
         this.GWeatherSettingsC = this.GWeatherSettings.connect(
@@ -449,55 +443,55 @@ const WeatherPrefsWidget = new GObject.Class({
                 that.refreshUI();
             }
         );
-    },
+    }
 
     get temperature_units() {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         return this.GWeatherSettings.get_enum(WEATHER_TEMPERATURE_UNIT_KEY);
-    },
+    }
 
     set temperature_units(v) {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         this.GWeatherSettings.set_enum(WEATHER_TEMPERATURE_UNIT_KEY, v);
-    },
+    }
 
     get speed_units() {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         return this.GWeatherSettings.get_enum(WEATHER_SPEED_UNIT_KEY);
-    },
+    }
 
     set speed_units(v) {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         this.GWeatherSettings.set_enum(WEATHER_SPEED_UNIT_KEY, v);
-    },
+    }
 
     get distance_units() {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         return this.GWeatherSettings.get_enum(WEATHER_DISTANCE_UNIT_KEY);
-    },
+    }
 
     set distance_units(v) {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         this.GWeatherSettings.set_enum(WEATHER_DISTANCE_UNIT_KEY, v);
-    },
+    }
 
     get pressure_units() {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         return this.GWeatherSettings.get_enum(WEATHER_PRESSURE_UNIT_KEY);
-    },
+    }
 
     set pressure_units(v) {
         if (!this.GWeatherSettings)
             this.loadGWeatherConfig();
         this.GWeatherSettings.set_enum(WEATHER_PRESSURE_UNIT_KEY, v);
-    },
+    }
 
     get city() {
         if (!this.Settings)
@@ -508,7 +502,7 @@ const WeatherPrefsWidget = new GObject.Class({
             cities[i] = this.world.deserialize(cities[i]);
         }
         return cities;
-    },
+    }
 
     set city(v) {
         if (!this.Settings)
@@ -518,7 +512,7 @@ const WeatherPrefsWidget = new GObject.Class({
             cities[i] = cities[i].serialize();
         }
         this.Settings.set_value(WEATHER_CITY_KEY, new GLib.Variant('av', cities));
-    },
+    }
 
     get actual_city() {
         if (!this.Settings)
@@ -538,7 +532,7 @@ const WeatherPrefsWidget = new GObject.Class({
             a = l;
 
         return a;
-    },
+    }
 
     set actual_city(a) {
         if (!this.Settings)
@@ -557,80 +551,90 @@ const WeatherPrefsWidget = new GObject.Class({
             a = l;
 
         this.Settings.set_int(WEATHER_ACTUAL_CITY_KEY, a);
-    },
+    }
 
     get wind_direction() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_boolean(WEATHER_WIND_DIRECTION_KEY);
-    },
+    }
 
     set wind_direction(v) {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.set_boolean(WEATHER_WIND_DIRECTION_KEY, v);
-    },
+    }
 
     get icon_type() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_boolean(WEATHER_USE_SYMBOLIC_ICONS_KEY);
-    },
+    }
 
     set icon_type(v) {
         if (!this.Settings)
             this.loadConfig();
         this.Settings.set_boolean(WEATHER_USE_SYMBOLIC_ICONS_KEY, v);
-    },
+    }
 
     get text_in_panel() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_boolean(WEATHER_SHOW_TEXT_IN_PANEL_KEY);
-    },
+    }
 
     set text_in_panel(v) {
         if (!this.Settings)
             this.loadConfig();
         this.Settings.set_boolean(WEATHER_SHOW_TEXT_IN_PANEL_KEY, v);
-    },
+    }
 
     get position_in_panel() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_enum(WEATHER_POSITION_IN_PANEL_KEY);
-    },
+    }
 
     set position_in_panel(v) {
         if (!this.Settings)
             this.loadConfig();
         this.Settings.set_enum(WEATHER_POSITION_IN_PANEL_KEY, v);
-    },
+    }
 
     get comment_in_panel() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_boolean(WEATHER_SHOW_COMMENT_IN_PANEL_KEY);
-    },
+    }
 
     set comment_in_panel(v) {
         if (!this.Settings)
             this.loadConfig();
         this.Settings.set_boolean(WEATHER_SHOW_COMMENT_IN_PANEL_KEY, v);
-    },
+    }
 
     get debug() {
         if (!this.Settings)
             this.loadConfig();
         return this.Settings.get_boolean(WEATHER_DEBUG_EXTENSION);
-    },
+    }
 
     set debug(v) {
         if (!this.Settings)
             this.loadConfig();
         this.Settings.set_boolean(WEATHER_DEBUG_EXTENSION, v);
     }
-});
+}
+
+// Gnome Shell version compatibility check
+let shellMinorVersion = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
+
+if (shellMinorVersion > 30) {
+    WeatherPrefsWidget = GObject.registerClass(
+        {GTypeName: 'WeatherPrefsWidget'},
+        WeatherPrefsWidget
+    );
+}
 
 function init() {
     ExtensionUtils.initTranslations('gnome-shell-extension-weather');
