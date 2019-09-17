@@ -72,16 +72,16 @@ const WeatherPrefsWidget = new GObject.Class({
     },
 
     status : function() {
-        if (typeof __logfile__ == "undefined") {
-            __logfile__ = Gio.file_new_for_path(GLib.get_user_cache_dir() + "/weather-extension-prefs.log");
-            if (__logfile__.query_exists(null))
-                __logfile__.delete(null);
+        if (typeof this.logfile == "undefined") {
+            this.logfile = Gio.file_new_for_path(GLib.get_user_cache_dir() + "/weather-extension-prefs.log");
+            if (this.logfile.query_exists(null))
+                this.logfile.delete(null);
         }
 
         if (!this.debug)
             return 0;
 
-        let fileOutput = __logfile__.append_to(Gio.FileCreateFlags.PRIVATE, null);
+        let fileOutput = this.logfile.append_to(Gio.FileCreateFlags.PRIVATE, null);
         if(!arguments[0])
             fileOutput.write("\n", null);
         else
