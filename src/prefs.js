@@ -38,7 +38,6 @@ const Soup = imports.gi.Soup;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 const EXTENSIONDIR = Me.dir.get_path();
 const Lang = imports.lang;
 
@@ -428,7 +427,7 @@ const WeatherPrefsWidget = new GObject.Class({
 
     loadConfig : function() {
         let that = this;
-        this.Settings = Convenience.getSettings(WEATHER_SETTINGS_SCHEMA);
+        this.Settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
         this.Settings.connect(
             "changed",
             function() {
@@ -440,7 +439,7 @@ const WeatherPrefsWidget = new GObject.Class({
 
     loadGWeatherConfig : function() {
         let that = this;
-        this.GWeatherSettings = Convenience.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
+        this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
         this.GWeatherSettingsC = this.GWeatherSettings.connect(
             "changed",
             function() {
@@ -632,7 +631,7 @@ const WeatherPrefsWidget = new GObject.Class({
 });
 
 function init() {
-    Convenience.initTranslations('gnome-shell-extension-weather');
+    ExtensionUtils.initTranslations('gnome-shell-extension-weather');
 }
 
 function buildPrefsWidget() {
