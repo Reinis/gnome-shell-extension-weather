@@ -1060,17 +1060,11 @@ let Weather = class Weather extends PanelMenu.Button {
                 return "";
         }
 
-        // TODO: Remove redundant this.symbolic_icon tests
-        if (String(icon_name).search("weather-clear-night") != -1 && this.symbolic_icon)
-            icon_name = "weather-clear-night";
-        else if (String(icon_name).search("weather-few-clouds-night") != -1 && this.symbolic_icon)
-            icon_name = "weather-few-clouds-night";
-
         if (this.symbolic_icon) {
             if (String(icon_name).search("-symbolic") != -1)
                 return icon_name;
             else
-                return icon_name+"-symbolic";
+                return icon_name + "-symbolic";
         } else {
             if (String(icon_name).search("-symbolic") != -1)
                 return String(icon_name).replace("-symbolic", "");
