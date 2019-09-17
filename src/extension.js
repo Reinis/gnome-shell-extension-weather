@@ -153,7 +153,6 @@ let Weather = class Weather extends PanelMenu.Button {
 
     start() {                                                                   this.status("Starting Weather");
         this.weatherStatus("load");
-        let that = this;
 
         this.loadConfig();
         this.loadGWeatherConfig();
@@ -169,9 +168,9 @@ let Weather = class Weather extends PanelMenu.Button {
 
             this.infoC = this.info.connect(
                 "updated",
-                function () {
-                    that.refresh();
-                    that.status(0);
+                () => {
+                    this.refresh();
+                    this.status(0);
                 }
             );                                                                  this.status("Information connection started");
         } else {
@@ -293,7 +292,6 @@ let Weather = class Weather extends PanelMenu.Button {
     }
 
     refresh() {                                                                 this.status("Refreshing");
-        let that = this;
         if (!this.info.is_valid()) {
             this.weatherStatus("error");                                        this.status("Informations is invalid");
             this.build = 0;
@@ -302,35 +300,35 @@ let Weather = class Weather extends PanelMenu.Button {
             return 0;
         }
 
-        let getConditions = function(info) {
+        let getConditions = (info) => {
             let conditions = info.get_conditions();
             if (conditions == "-")
                 conditions = info.get_sky();
             return conditions;
         };
 
-        let getMenuConditions = function(info) {
+        let getMenuConditions = (info) => {
             let conditions = "";
-            if (that.comment_in_panel)
+            if (this.comment_in_panel)
                 conditions += getConditions(info);
 
-            if (that.comment_in_panel && that.text_in_panel)
+            if (this.comment_in_panel && this.text_in_panel)
                 conditions += _(", ");
 
-            if (that.text_in_panel)
-                conditions += that.temperature_string();
+            if (this.text_in_panel)
+                conditions += this.temperature_string();
 
             return conditions;
         };
 
-        let getLocaleTime = function(date, localTimezone) {
+        let getLocaleTime = (date, localTimezone) => {
             if (!localTimezone)
-                date = GLib.DateTime.new_from_unix_local(date).to_timezone(that.get_timezone());
+                date = GLib.DateTime.new_from_unix_local(date).to_timezone(this.get_timezone());
             else
                 date = GLib.DateTime.new_from_unix_local(date).to_timezone(GLib.TimeZone.new_local());
 
             let localeTime = "-";
-            if (that.clock_format == "12h") {
+            if (this.clock_format == "12h") {
                 localeTime = date.format("%l:%M %p");
             } else {
                 localeTime = date.format("%R");
@@ -721,7 +719,6 @@ let Weather = class Weather extends PanelMenu.Button {
     }
 
     rebuildLocationSelectorItem() {
-        let that = this;
         this.UI.locationSelector.menu.removeAll();
         let item = null;
 
@@ -748,9 +745,7 @@ let Weather = class Weather extends PanelMenu.Button {
 
             item.connect(
                 'activate',
-                function(actor, event) {
-                    that.actual_city = actor.location;
-                }
+                (actor, event) => this.actual_city = actor.location
             );
         }
 
@@ -908,8 +903,6 @@ let Weather = class Weather extends PanelMenu.Button {
     }
 
     rebuildForecastItem(n) {
-        let that = this;
-
         if (!n) {
             this.UI.forecast.set_child(new St.Label({ text: _('No forecast information') }));
             return 0;
@@ -929,11 +922,11 @@ let Weather = class Weather extends PanelMenu.Button {
         this.UI.forecastBox.vscrollbar_policy = Gtk.PolicyType.NEVER;
         this.UI.forecastBox.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC;
 
-        let scrollTo = function(scroller, v) {
+        let scrollTo = (scroller, v) => {
             scroller.adjustment.value += v;
         };
 
-        let onScroll = function(actor, event) {
+        let onScroll = (actor, event) => {
             let dx = 0;
             switch (event.get_scroll_direction()) {
                 case Clutter.ScrollDirection.UP:
@@ -947,8 +940,8 @@ let Weather = class Weather extends PanelMenu.Button {
             }
 
             scrollTo(
-                that.UI.forecastBox.hscroll,
-                dx * that.UI.forecastBox.hscroll.adjustment.stepIncrement
+                this.UI.forecastBox.hscroll,
+                dx * this.UI.forecastBox.hscroll.adjustment.stepIncrement
             );
             return false;
         };
@@ -957,12 +950,12 @@ let Weather = class Weather extends PanelMenu.Button {
 
         action.connect(
             'pan',
-            function(act) {
+            (act) => {
                 let [dist, dx, dy] = act.get_motion_delta(0);
 
                 scrollTo(
-                    that.UI.forecastBox.hscroll,
-                    -1 * (dx / that.UI.forecastBox.width) * that.UI.forecastBox.hscroll.adjustment.page_size
+                    this.UI.forecastBox.hscroll,
+                    -1 * (dx / this.UI.forecastBox.width) * this.UI.forecastBox.hscroll.adjustment.page_size
                 );
 
                 return false;
@@ -1110,7 +1103,6 @@ let Weather = class Weather extends PanelMenu.Button {
     }
 
     wind_string(a) {
-        let that = this;
         let unit = this.speed_units;
 
         let wind = a;
@@ -1123,7 +1115,7 @@ let Weather = class Weather extends PanelMenu.Button {
         let v = parseFloat(Math.round(wind[0]*10)/10).toLocaleString();
         let d = wind[1];
 
-        let get_wind_direction = function(d) {
+        let get_wind_direction = (d) => {
             let arrows = [
                 '', _('VAR')+' ',
                 "\u2193 ", "\u2199 ", "\u2199 ", "\u2199 ", "\u2190 ",
@@ -1140,7 +1132,7 @@ let Weather = class Weather extends PanelMenu.Button {
                 _('NNW')+' ', ('-')+' '
             ];
 
-            return (that.wind_direction) ? arrows[d] : letters[d];
+            return (this.wind_direction) ? arrows[d] : letters[d];
         };
 
         let direction = get_wind_direction(d + 1);
@@ -1170,36 +1162,33 @@ let Weather = class Weather extends PanelMenu.Button {
     }
 
     loadConfig() {
-        let that = this;
         this.settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
         this.settingsC = this.settings.connect(
             "changed",
-            function() {                                                        that.status("**** SETTING CHANGED ("+arguments[1]+") ****");
-                that.settingsChanged();
+            (...args) => {                                                      this.status("**** SETTING CHANGED (" + args[1] + ") ****");
+                this.settingsChanged();
             }
         );
         return 0;
     }
 
     loadGWeatherConfig() {
-        let that = this;
         this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
         this.GWeatherSettingsC = this.GWeatherSettings.connect(
             "changed",
-            function() {                                                        that.status("**** GWEATHER SETTING CHANGED ("+arguments[1]+")  ****");
-                that.settingsChanged();
+            (...args) => {                                                      this.status("**** GWEATHER SETTING CHANGED (" + args[1] + ")  ****");
+                this.settingsChanged();
             }
         );
         return 0;
     }
 
     loadInterfaceConfig() {
-        let that = this;
         this.InterfaceSettings = ExtensionUtils.getSettings("org.gnome.desktop.interface");
         this.InterfaceSettingsC = this.InterfaceSettings.connect(
             "changed",
-            function() {                                                        that.status("**** INTERFACE SETTING CHANGED ("+arguments[1]+")  ****");
-                that.settingsChanged();
+            (...args) => {                                                      this.status("**** INTERFACE SETTING CHANGED (" + args[1] + ")  ****");
+                this.settingsChanged();
             }
         );
         return 0;
