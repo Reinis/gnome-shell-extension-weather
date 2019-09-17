@@ -306,9 +306,9 @@ const WeatherPrefsWidget = new GObject.Class({
     },
 
     selectionChanged : function(select) {
-        let a = select.get_selected_rows(this.liststore)[0][0];                 this.status("Selection changed to "+a.to_string());
+        let a = select.get_selected_rows()[0][0];
 
-        if (typeof a != "undefined") {
+        if (typeof a != "undefined") {                                          this.status("Selection changed to "+a.to_string());
             if (this.actual_city != parseInt(a.to_string())) {
                 this.actual_city = parseInt(a.to_string());                     this.status("Actual city changed to "+this.actual_city);
             }
