@@ -320,12 +320,12 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         dialog.set_default(d);
         entry.activates_default = true;
 
-        let testLocation = function(location) {
+        function testLocation(location) {
             d.sensitive = 0;
             if (entry.get_location())
                 d.sensitive = 1;
             return 0;
-        };
+        }
 
         entry.connect("changed", testLocation);
 
