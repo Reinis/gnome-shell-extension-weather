@@ -34,7 +34,7 @@
 
 'use strict';
 
-// Init const //
+// Init const
 const Config = imports.misc.config;
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -46,9 +46,7 @@ const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const GWeather = imports.gi.GWeather;
-const Lang = imports.lang;
 const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
 const PanelMenu = imports.ui.panelMenu;
 const Pango = imports.gi.Pango;
 const PopupMenu = imports.ui.popupMenu;
@@ -97,6 +95,13 @@ let Weather = class Weather extends PanelMenu.Button {
         this.variation("clock_format");
         this.variation("wind_direction");
         this.variation("debug");                                                this.status("Initialized GWeather");
+
+        this.timer_interval_default = 300;
+        this.timer_interval_short = 30;
+        this.timer_time_started = 0;
+        this.timer_timeout = 5*60;
+        this.timer_timeout_reached = false;
+        this.had_failed_update = false;
 
         this.initUI();
         this.start();
@@ -176,24 +181,48 @@ let Weather = class Weather extends PanelMenu.Button {
         this.refreshUI();
 
         if (this.city_name) {
-            this.timer = Mainloop.timeout_add_seconds(
-                300,
-                Lang.bind(
-                    this,
-                    function() {
-                        this.info.update();
-                        return true;
-                    }
-                )
-            );                                                                  this.status("Timer started");
+            this.updateTimer(this.timer_interval_default);                      this.status("Timer started");
             this.info.update();
         }                                                                       this.status("Weather started"); this.status(0);
         return 0;
     }
 
+    updateTimer(interval, timeout) {
+        if (this.timer)
+            GLib.source_remove(this.timer);
+
+        this.timer_time_started = GLib.get_monotonic_time();
+
+        this.timer = GLib.timeout_add_seconds(
+            GLib.PRIORITY_DEFAULT,
+            interval,
+            () => {
+                this.info.update();
+                return true;
+            }
+        );
+    }
+
+    updateTimerAfterFailure(timeout) {
+        if (!this.had_failed_update) {
+            this.updateTimer(this.timer_interval_short, timeout);
+        } else {
+            if (GLib.get_monotonic_time() - this.timer_time_started > timeout*1000000) {
+                if (!this.timer_timeout_reached) {
+                    this.updateTimer(this.timer_interval_default);
+                    this.timer_timeout_reached = true;
+                }
+            }
+        }
+    }
+
     stop() {                                                                    this.status("Stopping Weather");
         if (this.timer) {
-            Mainloop.source_remove(this.timer);                                 this.status("Timer stopped");
+            GLib.source_remove(this.timer);                                     this.status("Timer stopped");
+            this.timer = null;
+            this.timer_time_started = 0;
+            this.timer_timeout_reached = false;
+            this.had_failed_update = false;
         }
 
         if (this.infoC) {
@@ -268,6 +297,8 @@ let Weather = class Weather extends PanelMenu.Button {
         if (!this.info.is_valid()) {
             this.weatherStatus("error");                                        this.status("Informations is invalid");
             this.build = 0;
+            this.updateTimerAfterFailure(this.timer_timeout);
+            this.had_failed_update = true;
             return 0;
         }
 
@@ -338,7 +369,14 @@ let Weather = class Weather extends PanelMenu.Button {
             this.forecast = this.loadForecast();                                this.status(this.forecast.length+" forecast");
             if (this.forecast.length == 0) {
                 // Failed to get forecast
+                this.updateTimerAfterFailure(this.timer_timeout);
+                this.had_failed_update = true;
                 return 1;
+            } else if (this.had_failed_update) {
+                // On success, reset to default timer interval
+                this.had_failed_update = false;
+                this.timer_timeout_reached = false;
+                this.updateTimer(this.timer_interval_default);
             }
         }
 
@@ -598,20 +636,12 @@ let Weather = class Weather extends PanelMenu.Button {
         this.rebuildLocationSelectorItem();                                     this.status("Location selector builded");
 
         this.UI.reloadButton = new PopupMenu.PopupMenuItem(_("Reload Weather Information"));
-        this.UI.reloadButton.connect(
-            'activate',
-            Lang.bind(
-                this,
-                function() {
-                    this.info.update();
-                }
-            )
-        );
+        this.UI.reloadButton.connect('activate', () => this.info.update());
         this.menu.addMenuItem(this.UI.reloadButton);
         this.UI.reloadButton.actor.hide();
 
         item = new PopupMenu.PopupMenuItem(_("Weather Settings"));
-        item.connect('activate', Lang.bind(this, this.onPreferencesActivate));
+        item.connect('activate', () => this.onPreferencesActivate());
         this.menu.addMenuItem(item);                                            this.status("Preference button added to menu");
         this.weatherStatus(0);                                                  this.status("UI initialized");
         return 0;
