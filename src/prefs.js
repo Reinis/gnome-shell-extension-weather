@@ -96,7 +96,6 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     initWindow() {                                                              this.status("Init window");
-        let that = this;
         this.mCities = [];
 
         this.Window = new Gtk.Builder();
@@ -109,23 +108,17 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
 
         this.Window.get_object("tree-toolbutton-add").connect(
             "clicked",
-            function() {
-                that.addCity();
-            }
+            () => this.addCity()
         );                                                                      this.status("Add button connected");
 
         this.Window.get_object("tree-toolbutton-remove").connect(
             "clicked",
-            function() {
-                that.removeCity();
-            }
+            () => this.removeCity()
         );                                                                      this.status("Remove button connected");
 
         this.Window.get_object("treeview-selection").connect(
             "changed",
-            function(selection) {
-                that.selectionChanged(selection);
-            }
+            (selection) => this.selectionChanged(selection)
         );                                                                      this.status("Treeview selection connected");
 
         this.treeview.set_model(this.liststore);                                this.status("Treeview liststore added");
@@ -138,9 +131,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
 
         column.set_cell_data_func(
             renderer,
-            function() {
-                arguments[1].markup = arguments[2].get_value(arguments[3],0);
-            }
+            (...args) => args[1].markup = args[2].get_value(args[3], 0)
         );
 
         this.initConfigWidget();                                                this.status("Inited config widget");
@@ -258,7 +249,6 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     addComboBox(a, b) {
-        let that = this;
         let cf = new Gtk.ComboBoxText();
         this.configWidgets.push([cf, b]);
         cf.visible = 1;
@@ -271,11 +261,11 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         cf.active_id = String(this[b]);
         cf.connect(
             "changed",
-            function() {
+            (...args) => {
                 try {
-                    that[b] = Number(arguments[0].get_active_id());
+                    this[b] = Number(args[0].get_active_id());
                 } catch (e) {
-                    that.status(e);
+                    this.status(e);
                 }
             }
         );
@@ -285,7 +275,6 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     addSwitch(a) {
-        let that = this;
         let sw = new Gtk.Switch();
         this.configWidgets.push([sw, a]);
         sw.visible = 1;
@@ -293,9 +282,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         sw.active = this[a];
         sw.connect(
             "notify::active",
-            function() {
-                that[a] = arguments[0].active;
-            }
+            (...args) => this[a] = args[0].active
         );
         this.right_widget.attach(sw, this.x[0], this.x[1], this.y[0], this.y[1], 0, 0, 0, 0);
         this.inc();
@@ -312,7 +299,6 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     addCity() {
-        let that = this;
         let textDialog = _("Name of the city");
         let dialog = new Gtk.Dialog({title : ""});
         let entry = GWeather.LocationEntry.new(this.world);
@@ -348,12 +334,12 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         dialog_area.pack_start(entry,0,0,0);
         dialog.connect(
             "response",
-            function(w, response_id) {
+            (w, response_id) => {
                 let location = entry.get_location();
                 if (response_id && location) {
-                    let locations = that.city;
+                    let locations = this.city;
                     locations.push(location);
-                    that.city = locations;
+                    this.city = locations;
                 }
                 dialog.destroy();
                 return 0;
@@ -364,14 +350,12 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     removeCity() {
-        let that = this;
         let locations = this.city;
-        // TODO: Move this after the check
-        let city = locations[this.actual_city];
 
         if (!locations.length)
             return 0;
 
+        let city = locations[this.actual_city];
         let ac = this.actual_city;
         let textDialog = _("Remove %s ?").replace("%s", city.get_city_name());
         let dialog = new Gtk.Dialog({title : ""});
@@ -393,7 +377,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         dialog_area.pack_start(label,0,0,0);
         dialog.connect(
             "response",
-            function(w, response_id) {
+            (w, response_id) => {
                 if (response_id) {
                     for (let i = 0; i < locations.length; i++) {
                         if (locations[i].equal(city)) {
@@ -401,7 +385,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
                             break;
                         }
                     }
-                    that.city = locations;
+                    this.city = locations;
                 }
                 dialog.destroy();
                 return 0;
@@ -422,25 +406,23 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     }
 
     loadConfig() {
-        let that = this;
         this.Settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
         this.Settings.connect(
             "changed",
-            function() {
-                that.status(0);
-                that.refreshUI();
+            () => {
+                this.status(0);
+                this.refreshUI();
             }
         );
     }
 
     loadGWeatherConfig() {
-        let that = this;
         this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
         this.GWeatherSettingsC = this.GWeatherSettings.connect(
             "changed",
-            function() {
-                that.status(0);
-                that.refreshUI();
+            () => {
+                this.status(0);
+                this.refreshUI();
             }
         );
     }
