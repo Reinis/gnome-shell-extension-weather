@@ -74,7 +74,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
 
     status() {
         if (typeof this.logfile == "undefined") {
-            this.logfile = Gio.file_new_for_path(GLib.get_user_cache_dir() + "/weather-extension-prefs.log");
+            this.logfile = Gio.file_new_for_path(`${GLib.get_user_cache_dir()}/weather-extension-prefs.log`);
             if (this.logfile.query_exists(null))
                 this.logfile.delete(null);
         }
@@ -86,7 +86,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         if(!arguments[0])
             fileOutput.write("\n", null);
         else
-            fileOutput.write("[" + new Date().toString() + "] " + arguments[0] + "\n", null);
+            fileOutput.write(`[${new Date().toString()}] ${arguments[0]}\n`, null);
         fileOutput.close(null);
         return 0;
     }
@@ -99,7 +99,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         this.mCities = [];
 
         this.Window = new Gtk.Builder();
-        this.Window.add_from_file(EXTENSIONDIR + "/weather-settings.ui");       this.status("Weather Settings UI loaded");
+        this.Window.add_from_file(`${EXTENSIONDIR}/weather-settings.ui`);       this.status("Weather Settings UI loaded");
 
         this.MainWidget = this.Window.get_object("main-widget");
         this.treeview = this.Window.get_object("tree-treeview");
@@ -182,13 +182,13 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
                 this.liststore.clear();                                         this.status("Liststore cleared");
             }
 
-            if (cities.length > 0) {                                            this.status(cities.length+" cities to add in the liststore");
+            if (cities.length > 0) {                                            this.status(`${cities.length} cities to add in the liststore`);
                 let current = this.liststore.get_iter_first();
 
                 for (let i = 0; i < cities.length; i++) {
                     current = this.liststore.append();
                     let city = cities[i];
-                    this.liststore.set_value(current, 0, city.get_city_name()); this.status((i+1)+") "+city.get_city_name()+" added");
+                    this.liststore.set_value(current, 0, city.get_city_name()); this.status(`${i + 1}) ${city.get_city_name()} added`);
                 }
             }
 
@@ -200,11 +200,11 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         let config = this.configWidgets;                                        this.status("Setting the widget");
         for (let i in config) {
             if (typeof config[i][0].active_id != "undefined"
-                && config[i][0].active_id != this[config[i][1]]) {              this.status("Change "+config[i][1]+" from "+config[i][0].active_id+" to "+this[config[i][1]]+" (active_id)");
-                config[i][0].active_id = String(this[config[i][1]]);            this.status(config[i][1]+" changed to "+this[config[i][1]]+" (active_id)");
+                && config[i][0].active_id != this[config[i][1]]) {              this.status(`Change ${config[i][1]} from ${config[i][0].active_id} to ${this[config[i][1]]} (active_id)`);
+                config[i][0].active_id = String(this[config[i][1]]);            this.status(`${config[i][1]} changed to ${this[config[i][1]]} (active_id)`);
             } else if (typeof config[i][0].active_id == "undefined"
-                && config[i][0].active != this[config[i][1]]) {                 this.status("Change "+config[i][1]+" from "+config[i][0].active+" to "+this[config[i][1]]);
-                config[i][0].active = this[config[i][1]];                       this.status(config[i][1]+" changed to "+this[config[i][1]]);
+                && config[i][0].active != this[config[i][1]]) {                 this.status(`Change ${config[i][1]} from ${config[i][0].active} to ${this[config[i][1]]}`);
+                config[i][0].active = this[config[i][1]];                       this.status(`${config[i][1]} changed to ${this[config[i][1]]}`);
             }                                                                   this.status("UI refreshed");
         }
     }
@@ -270,7 +270,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
             }
         );
         this.right_widget.attach(cf, this.x[0], this.x[1], this.y[0], this.y[1], 0, 0, 0, 0);
-        this.inc();                                                             this.status("Added comboBox("+(this.configWidgets.length-1)+") "+b+" active_id : "+this[b]);
+        this.inc();                                                             this.status(`Added comboBox(${this.configWidgets.length - 1}) ${b} active_id : ${this[b]}`);
         return 0;
     }
 
@@ -291,9 +291,9 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
     selectionChanged(select) {
         let a = select.get_selected_rows()[0][0];
 
-        if (typeof a != "undefined") {                                          this.status("Selection changed to "+a.to_string());
+        if (typeof a != "undefined") {                                          this.status(`Selection changed to ${a.to_string()}`);
             if (this.actual_city != parseInt(a.to_string())) {
-                this.actual_city = parseInt(a.to_string());                     this.status("Actual city changed to "+this.actual_city);
+                this.actual_city = parseInt(a.to_string());                     this.status(`Actual city changed to ${this.actual_city}`);
             }
         }
     }
@@ -400,7 +400,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         let path = this.actual_city;
         if (typeof arguments[0] != "undefined")
             path = arguments[0];
-                                                                                this.status("Change selection to "+path);
+                                                                                this.status(`Change selection to ${path}`);
         path = Gtk.TreePath.new_from_string(String(path));
         this.treeview.get_selection().select_path(path);
     }
