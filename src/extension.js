@@ -1054,12 +1054,12 @@ let Weather = class Weather extends PanelMenu.Button {
         }
 
         if (this.symbolic_icon) {
-            if (String(icon_name).search("-symbolic") != -1)
+            if (String(icon_name).includes("-symbolic"))
                 return icon_name;
             else
                 return icon_name + "-symbolic";
         } else {
-            if (String(icon_name).search("-symbolic") != -1)
+            if (String(icon_name).includes("-symbolic"))
                 return String(icon_name).replace("-symbolic", "");
             else
                 return icon_name;
