@@ -1,4 +1,4 @@
-#! /usr/bin/env seed
+#! /usr/bin/env gjs
 
 /*
  *
@@ -25,29 +25,52 @@
  *
  */
 
-Gio = imports.gi.Gio;
+const ByteArray = imports.byteArray;
+const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 
 print("Generate gnome-shell-extension-weather.pot");
-let xgettext = Seed.spawn("xgettext -o gnome-shell-extension-weather.pot -L python --from-code=utf-8 --keyword=_ -f POTFILES.in");
 
-if (xgettext.stderr) {
-    print(xgettext.stderr);
+let cmd = "xgettext -o gnome-shell-extension-weather.pot -L python --from-code=utf-8 --keyword=_ -f POTFILES.in";
+let exit_status = null;
+let stdout = null;
+let stderr = null;
+let error = null;
+
+try {
+    [exit_status, stdout, stderr, error] = GLib.spawn_command_line_sync(cmd);
+    print(ByteArray.toString(stdout));
+} catch (error) {
+    throw error;
+}
+
+if (stderr.length) {
+    print(ByteArray.toString(stderr));
 } else {
     let file = Gio.file_new_for_path(".");
-    let enumerator = file.enumerate_children("standard::name,standard::size");
+    let enumerator = file.enumerate_children("standard::name,standard::size", 0, null);
     let linguas = "";
-    let n = "";
+    let fname = "";
     let i = 0;
-    while (child = enumerator.next_file()) {
-        if (child.get_name().search(/.po$/) != -1) {
-            print("Generate " + child.get_name());
-            linguas += n + (child.get_name().split(".po")[0]);
-            Seed.spawn("msgmerge -U " + child.get_name() + " gnome-shell-extension-weather.pot");
-            n = "\n";
+    let child = enumerator.next_file(null);
+    while (child) {
+        fname = child.get_name();
+        if (fname.search(/.po$/) != -1) {
+            print(`Generate ${fname}`);
+            linguas += `${fname.split(".po")[0]}\n`;
+            cmd = `msgmerge -U ${fname} gnome-shell-extension-weather.pot`;
+            try {
+                [exit_status, stdout, stderr, error] = GLib.spawn_command_line_sync(cmd);
+                print(ByteArray.toString(stderr));
+            } catch (error) {
+                throw error;
+            }
             i++;
         }
+        child = enumerator.next_file(null);
     }
     print("Write LINGUAS file");
-    Gio.simple_write("LINGUAS", linguas);
-    print("Successfully generated " + i + " entry");
+    file = Gio.file_new_for_path("LINGUAS");
+    file.replace_contents(linguas, null, false, Gio.FileCreateFlags.NONE, null);
+    print(`Successfully generated ${i} entry`);
 }
