@@ -80,7 +80,7 @@ let Weather = class Weather extends PanelMenu.Button {
             menuAlignment = 1.0 - menuAlignment;
 
         super._init(menuAlignment, 'Weather Indicator', false);                 this.status("Weather panel menu button initialized");
-                                                                                this.status("Menu alignment = " + menuAlignment);
+                                                                                this.status(`Menu alignment = ${menuAlignment}`);
 
         this.variation("temperature_units");
         this.variation("speed_units");
@@ -130,7 +130,7 @@ let Weather = class Weather extends PanelMenu.Button {
 
     status() {
         if (typeof this.logfile == "undefined") {
-            this.logfile = Gio.file_new_for_path(GLib.get_user_cache_dir() + "/weather-extension.log");
+            this.logfile = Gio.file_new_for_path(`${GLib.get_user_cache_dir()}/weather-extension.log`);
             if (this.logfile.query_exists(null))
                 this.logfile.delete(null);
         }
@@ -142,7 +142,7 @@ let Weather = class Weather extends PanelMenu.Button {
         if (!arguments[0])
             fileOutput.write("\n", null);
         else
-            fileOutput.write("[" + new Date().toString() + "] " + arguments[0] + "\n",null);
+            fileOutput.write(`[${new Date().toString()}] ${arguments[0]}\n`, null);
         fileOutput.close(null);
         return 0;
     }
@@ -159,7 +159,7 @@ let Weather = class Weather extends PanelMenu.Button {
         this.loadInterfaceConfig();
 
         this.location = this.city;
-        if (this.city_name) {                                                   this.status("Location ("+this.city_name+") loaded");
+        if (this.city_name) {                                                   this.status(`Location (${this.city_name}) loaded`);
             this.info = new GWeather.Info({location: this.location});           this.status("Information loaded");
 
             this.info.set_enabled_providers(GWeather.Provider.METAR |
@@ -364,7 +364,7 @@ let Weather = class Weather extends PanelMenu.Button {
         let di_up = (first) ? "displayed" : "updated";
 
         if (fuc || tempUnitVar) {
-            this.forecast = this.loadForecast();                                this.status(this.forecast.length+" forecast");
+            this.forecast = this.loadForecast();                                this.status(`${this.forecast.length} forecast`);
             if (this.forecast.length == 0) {
                 // Failed to get forecast
                 this.updateTimerAfterFailure(this.timer_timeout);
@@ -388,7 +388,7 @@ let Weather = class Weather extends PanelMenu.Button {
             this.UI.currentSunset.text = getLocaleTime(this.info.get_value_sunset()[1]);
             this.UI.currentBuild.text = getLocaleTime(this.info.get_value_update()[1], 1);
             this.UI.currentLocation.text = this.location.get_city_name() + _(", ") + getConditions(this.info);
-            this.UI.currentHumidity.text = this.info.get_humidity();            this.status("Basics informations "+di_up);
+            this.UI.currentHumidity.text = this.info.get_humidity();            this.status(`Basics informations ${di_up}`);
         }
 
         if (fuc || tempUnitVar) {
@@ -396,23 +396,23 @@ let Weather = class Weather extends PanelMenu.Button {
             this.UI.currentLocation.text = this.location.get_city_name() + _(", ") + getConditions(this.info);
             this.UI.menuConditions.text = getMenuConditions(this.info);
             this.UI.currentTemperature.text = this.temperature_string(this.info.get_value_apparent(this.temperature_units)[1]);
-                                                                                this.status("Temperatures informations "+di_up);
+                                                                                this.status(`Temperatures informations ${di_up}`);
         }
 
         if (fuc || speedUnitVar || windDirectionVar) {
-            this.UI.currentWind.text = this.wind_string();                      this.status("Wind information "+di_up);
+            this.UI.currentWind.text = this.wind_string();                      this.status(`Wind information ${di_up}`);
         }
 
         if (fuc || distUnitVar) {
-            this.UI.currentVisibility.text = this.info.get_visibility();        this.status("Distance information "+di_up);
+            this.UI.currentVisibility.text = this.info.get_visibility();        this.status(`Distance information ${di_up}`);
         }
 
         if (fuc || presUnitVar) {
-            this.UI.currentPressure.text = this.info.get_pressure();            this.status("Pressure information "+di_up);
+            this.UI.currentPressure.text = this.info.get_pressure();            this.status(`Pressure information ${di_up}`);
         }
 
         if (textInPanelVar || commentInPanelVar) {
-            this.UI.menuConditions.text = getMenuConditions(this.info);         this.status("Panel information "+di_up);
+            this.UI.menuConditions.text = getMenuConditions(this.info);         this.status(`Panel information ${di_up}`);
         }
 
         if (clockFormatVar) {
@@ -425,13 +425,13 @@ let Weather = class Weather extends PanelMenu.Button {
             if (fuc) {
                 this.UI.forecastItems[i].icon.icon_name = this.icon_type(this.forecast[i].icon);
                 this.UI.forecastItems[i].day.text = this.forecast[i].dayText;
-                                                                                this.status("Basics forecast ("+i+") informations "+di_up);
+                                                                                this.status(`Basics forecast (${i}) informations ${di_up}`);
             }
 
             if (fuc || tempUnitVar) {
                 this.UI.forecastItems[i].temp_min.text = "\u2193 " + this.temperature_string(this.forecast[i].minTemp);
                 this.UI.forecastItems[i].temp_max.text = "\u2191 " + this.temperature_string(this.forecast[i].maxTemp);
-                                                                                this.status("Temperatures forecast ("+i+") informations "+di_up);
+                                                                                this.status(`Temperatures forecast (${i}) informations ${di_up}`);
             }
         }                                                                       this.status("Refreshed");
         return 0;
@@ -475,7 +475,7 @@ let Weather = class Weather extends PanelMenu.Button {
         let oldDate = {};
         let nowDate = {};
 
-        let forecastList = this.info.get_forecast_list();                       this.status("Forecast list loaded ("+forecastList.length+")");
+        let forecastList = this.info.get_forecast_list();                       this.status(`Forecast list loaded (${forecastList.length})`);
 
         if (forecastList.length == 0) {
             // Failed to get forecast
@@ -495,9 +495,9 @@ let Weather = class Weather extends PanelMenu.Button {
                 && (oldDate.get_day_of_month() != nowDate.get_day_of_month())) {                                                                           this.status("+1 day");
                 day++;
             }
-                                                                                this.status("Forecast "+i+" (Day : "+day+") :");
-            if (typeof forecast[day] == "undefined") {                          this.status("Init new day ("+day+")");
-                initialTemp = forecastList[i].get_value_temp(unit)[1];          this.status("Initial temperature : "+initialTemp);
+                                                                                this.status(`Forecast ${i} (Day : ${day}) :`);
+            if (typeof forecast[day] == "undefined") {                          this.status(`Init new day (${day})`);
+                initialTemp = forecastList[i].get_value_temp(unit)[1];          this.status(`Initial temperature : ${initialTemp}`);
                 forecast[day] = {hour : []};
                 forecast[day].minTemp = initialTemp;
                 if (forecastList[i].get_value_temp_min(unit)[0])
@@ -506,14 +506,14 @@ let Weather = class Weather extends PanelMenu.Button {
                 if (forecastList[i].get_value_temp_max(unit)[0])
                     forecast[day].maxTemp = forecastList[i].get_value_temp_max(unit)[1];
                 forecast[day].icon = "";
-                forecast[day].dayText = dayName(actualDate, nowDate);           this.status("Day name : "+forecast[day].dayText);
-                                                                                this.status("Forecast "+i+" inited");
+                forecast[day].dayText = dayName(actualDate, nowDate);           this.status(`Day name : ${forecast[day].dayText}`);
+                                                                                this.status(`Forecast ${i} inited`);
             }
 
             hour = nowDate.get_hour();
-            forecast[day].hour[hour] = forecastList[i];                         this.status("Forecast for "+forecast[day].dayText+" at "+hour);
+            forecast[day].hour[hour] = forecastList[i];                         this.status(`Forecast for ${forecast[day].dayText} at ${hour}`);
 
-            let temp = forecastList[i].get_value_temp(unit)[1];                 this.status("Temp : "+temp);
+            let temp = forecastList[i].get_value_temp(unit)[1];                 this.status(`Temp : ${temp}`);
 
             if (temp <= forecast[day].minTemp)
                 forecast[day].minTemp = temp;
@@ -560,14 +560,14 @@ let Weather = class Weather extends PanelMenu.Button {
                     div[3][x] = forecast[i].hour[x];
             }
 
-            if (div_length(div[2])) {                                           this.status(i+", Afternoon");
-                forecast[i].icon = getIconName(div[2]);                         this.status("Loaded "+forecast[i].icon+" icon");
-            } else if (div_length(div[1])) {                                    this.status(i+", Morning");
-                forecast[i].icon = getIconName(div[1]);                         this.status("Loaded "+forecast[i].icon+" icon");
-            } else if (div_length(div[3])) {                                    this.status(i+", Evening");
-                forecast[i].icon = getIconName(div[3]);                         this.status("Loaded "+forecast[i].icon+" icon");
-            } else if (div_length(div[0])) {                                    this.status(i+", Night");
-                forecast[i].icon = getIconName(div[0]);                         this.status("Loaded "+forecast[i].icon+" icon");
+            if (div_length(div[2])) {                                           this.status(`${i}, Afternoon`);
+                forecast[i].icon = getIconName(div[2]);                         this.status(`Loaded ${forecast[i].icon} icon`);
+            } else if (div_length(div[1])) {                                    this.status(`${i}, Morning`);
+                forecast[i].icon = getIconName(div[1]);                         this.status(`Loaded ${forecast[i].icon} icon`);
+            } else if (div_length(div[3])) {                                    this.status(`${i}, Evening`);
+                forecast[i].icon = getIconName(div[3]);                         this.status(`Loaded ${forecast[i].icon} icon`);
+            } else if (div_length(div[0])) {                                    this.status(`${i}, Night`);
+                forecast[i].icon = getIconName(div[0]);                         this.status(`Loaded ${forecast[i].icon} icon`);
             }
         }
 
@@ -711,7 +711,7 @@ let Weather = class Weather extends PanelMenu.Button {
             if (typeof this.UI.forecastItems != "undefined") {
                 for (let i = 0; i < this.UI.forecastItems.length; i++) {
                     let icon = this.icon_type(this.UI.forecastItems[i].icon.icon_name);
-                    this.UI.forecastItems[i].icon.icon_name = icon;             this.status("Rebuilded forecast ("+i+") icon");
+                    this.UI.forecastItems[i].icon.icon_name = icon;             this.status(`Rebuilded forecast (${i}) icon`);
                 }
             }
         }                                                                       this.status("UI refreshed");
@@ -1165,7 +1165,7 @@ let Weather = class Weather extends PanelMenu.Button {
         this.settings = ExtensionUtils.getSettings(WEATHER_SETTINGS_SCHEMA);
         this.settingsC = this.settings.connect(
             "changed",
-            (...args) => {                                                      this.status("**** SETTING CHANGED (" + args[1] + ") ****");
+            (...args) => {                                                      this.status(`**** SETTING CHANGED (${args[1]}) ****`);
                 this.settingsChanged();
             }
         );
@@ -1176,7 +1176,7 @@ let Weather = class Weather extends PanelMenu.Button {
         this.GWeatherSettings = ExtensionUtils.getSettings(WEATHER_GWEATHER_SETTINGS_SCHEMA);
         this.GWeatherSettingsC = this.GWeatherSettings.connect(
             "changed",
-            (...args) => {                                                      this.status("**** GWEATHER SETTING CHANGED (" + args[1] + ")  ****");
+            (...args) => {                                                      this.status(`**** GWEATHER SETTING CHANGED (${args[1]})  ****`);
                 this.settingsChanged();
             }
         );
@@ -1187,7 +1187,7 @@ let Weather = class Weather extends PanelMenu.Button {
         this.InterfaceSettings = ExtensionUtils.getSettings("org.gnome.desktop.interface");
         this.InterfaceSettingsC = this.InterfaceSettings.connect(
             "changed",
-            (...args) => {                                                      this.status("**** INTERFACE SETTING CHANGED (" + args[1] + ")  ****");
+            (...args) => {                                                      this.status(`**** INTERFACE SETTING CHANGED (${args[1]})  ****`);
                 this.settingsChanged();
             }
         );
@@ -1213,7 +1213,7 @@ let Weather = class Weather extends PanelMenu.Button {
         }
 
         if (this.variation("city_name")) {                                      this.status("Location has changed");
-            this.restart();                                                     this.status("Location changed to "+this.city_name);
+            this.restart();                                                     this.status(`Location changed to ${this.city_name}`);
             return 0;
         }
 
