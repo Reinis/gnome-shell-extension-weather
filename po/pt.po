@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 18:16+0100\n"
+"POT-Creation-Date: 2019-09-18 00:18+0300\n"
 "PO-Revision-Date: 2013-12-07 11:39-0200\n"
 "Last-Translator: Kemel Zaidan <kemelzaidan@gmail.com>\n"
 "Language-Team: Português <kemelzaidan@gmail.com>\n"
@@ -19,249 +19,249 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: ../src/extension.js:235 ../src/extension.js:243 ../src/extension.js:251
-#: ../src/extension.js:259 ../src/extension.js:575
+#: ../src/extension.js:261 ../src/extension.js:269 ../src/extension.js:277
+#: ../src/extension.js:285 ../src/extension.js:591
 msgid "Weather"
 msgstr "Tempo"
 
-#: ../src/extension.js:237
+#: ../src/extension.js:263
 msgid "No location configured"
 msgstr "Nenhum local configurado"
 
-#: ../src/extension.js:245
+#: ../src/extension.js:271
 msgid "Loading weather"
 msgstr "Carregando a previsão do tempo"
 
-#: ../src/extension.js:261
+#: ../src/extension.js:287
 msgid "Weather extension ready"
 msgstr "Extensão de previsão do tempo pronta"
 
-#: ../src/extension.js:293 ../src/extension.js:366 ../src/extension.js:373
+#: ../src/extension.js:316 ../src/extension.js:390 ../src/extension.js:396
 msgid ", "
 msgstr ","
 
-#: ../src/extension.js:451
+#: ../src/extension.js:464
 msgid "Today"
 msgstr "Hoje"
 
-#: ../src/extension.js:454
+#: ../src/extension.js:467
 msgid "Tomorrow"
 msgstr "Amanhã"
 
-#: ../src/extension.js:457
+#: ../src/extension.js:470
 msgid "Yesterday"
 msgstr "Ontem"
 
-#: ../src/extension.js:639
+#: ../src/extension.js:631
 msgid "Locations"
 msgstr "Locais"
 
-#: ../src/extension.js:643
+#: ../src/extension.js:636
 msgid "Reload Weather Information"
 msgstr "Recarregar informações meteorológicas"
 
-#: ../src/extension.js:648
+#: ../src/extension.js:641
 msgid "Weather Settings"
 msgstr "Configurações"
 
-#: ../src/extension.js:812
+#: ../src/extension.js:793
 msgid "No weather information"
 msgstr "Sem informações meteorológicas"
 
-#: ../src/extension.js:814
+#: ../src/extension.js:795
 #, python-format
 msgid "No weather information for %s"
 msgstr "Sem informações meteorológicas para %s"
 
-#: ../src/extension.js:899
+#: ../src/extension.js:881
 msgid "Feels like"
 msgstr "Sensação térmica"
 
-#: ../src/extension.js:901
+#: ../src/extension.js:883
 msgid "Visibility"
 msgstr "Visibilidade"
 
-#: ../src/extension.js:903
+#: ../src/extension.js:885
 msgid "Humidity"
 msgstr "Humidade"
 
-#: ../src/extension.js:905
+#: ../src/extension.js:887
 msgid "Pressure"
 msgstr "Pressão"
 
-#: ../src/extension.js:907
+#: ../src/extension.js:889
 msgid "Wind"
 msgstr "Vento"
 
-#: ../src/extension.js:929
+#: ../src/extension.js:907
 msgid "No forecast information"
 msgstr "Sem informações meteorológicas"
 
-#: ../src/extension.js:1114
+#: ../src/extension.js:1089
 #, python-format
 msgid "%s °F"
 msgstr "%s °F"
 
-#: ../src/extension.js:1118
+#: ../src/extension.js:1092
 #, python-format
 msgid "%s °C"
 msgstr "%s °C"
 
-#: ../src/extension.js:1122
+#: ../src/extension.js:1095
 #, python-format
 msgid "%s K"
 msgstr "%s K"
 
-#: ../src/extension.js:1128 ../src/extension.js:1186
+#: ../src/extension.js:1100 ../src/extension.js:1159
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: ../src/extension.js:1150 ../src/extension.js:1153
+#: ../src/extension.js:1120 ../src/extension.js:1128
 msgid "VAR"
 msgstr "VAR"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "N"
 msgstr "N"
 
 # Some points like NE, ENE, ESE and SSE haven't a translation to portuguese, and are  used in it's original form.
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NNE"
 msgstr "NE"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NE"
 msgstr "NE"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "ENE"
 msgstr "ENE"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "E"
 msgstr "E"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "ESE"
 msgstr "ESE"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SE"
 msgstr "SE"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SSE"
 msgstr "SSE"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "S"
 msgstr "S"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "SSW"
 msgstr "SSO"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "SW"
 msgstr "SO"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WSW"
 msgstr "OSO"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "W"
 msgstr "O"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WNW"
 msgstr "ONO"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "NW"
 msgstr "NO"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1132
 msgid "NNW"
 msgstr "NNO"
 
-#: ../src/extension.js:1164
+#: ../src/extension.js:1142
 msgid "$d$s knots"
 msgstr "$d$s knots"
 
-#: ../src/extension.js:1168
+#: ../src/extension.js:1145
 msgid "$d$s mph"
 msgstr "$d$s mph"
 
-#: ../src/extension.js:1172
+#: ../src/extension.js:1148
 msgid "$d$s km/h"
 msgstr "$d$s km/h"
 
-#: ../src/extension.js:1176
+#: ../src/extension.js:1151
 msgid "$d$s m/s"
 msgstr "$d$s m/s"
 
-#: ../src/extension.js:1180
+#: ../src/extension.js:1154
 msgid "$dBeaufort $s"
 msgstr "$dBeaufort $s"
 
-#: ../src/prefs.js:143
+#: ../src/prefs.js:138
 msgid "Temperature Unit"
 msgstr "Unidade de temperatura"
 
-#: ../src/prefs.js:145
+#: ../src/prefs.js:140
 msgid "Wind Speed Unit"
 msgstr "Unidade de velocidade do vento"
 
-#: ../src/prefs.js:147
+#: ../src/prefs.js:142
 msgid "Pressure Unit"
 msgstr "Unidade de pressão"
 
-#: ../src/prefs.js:149
+#: ../src/prefs.js:144
 msgid "Distance Unit"
 msgstr "Unidade de distância"
 
-#: ../src/prefs.js:151
+#: ../src/prefs.js:146
 msgid "Position in Panel"
 msgstr "Posição no painel"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Center"
 msgstr "Centro"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Right"
 msgstr "Direita"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Left"
 msgstr "Esquerda"
 
-#: ../src/prefs.js:153
+#: ../src/prefs.js:148
 msgid "Wind Direction by Arrows"
 msgstr "Direção do vento usando setas"
 
-#: ../src/prefs.js:155
+#: ../src/prefs.js:150
 msgid "Symbolic Icons"
 msgstr "Ícones simbólicos"
 
-#: ../src/prefs.js:157
+#: ../src/prefs.js:152
 msgid "Temperature in Panel"
 msgstr "Temperatura no painel"
 
-#: ../src/prefs.js:159
+#: ../src/prefs.js:154
 msgid "Conditions in Panel"
 msgstr "Condições no painel"
 
-#: ../src/prefs.js:161
+#: ../src/prefs.js:156
 msgid "Debug the extension"
 msgstr "Depurar a extensão"
 
-#: ../src/prefs.js:320
+#: ../src/prefs.js:302
 msgid "Name of the city"
 msgstr "Nome da cidade"
 
-#: ../src/prefs.js:378
+#: ../src/prefs.js:360
 #, python-format
 msgid "Remove %s ?"
 msgstr "Remover %s ?"

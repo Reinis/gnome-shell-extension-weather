@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 18:16+0100\n"
+"POT-Creation-Date: 2019-09-18 00:18+0300\n"
 "PO-Revision-Date: 2012-06-07 10:45+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: suomi <>\n"
@@ -19,259 +19,259 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: ../src/extension.js:235 ../src/extension.js:243 ../src/extension.js:251
-#: ../src/extension.js:259 ../src/extension.js:575
+#: ../src/extension.js:261 ../src/extension.js:269 ../src/extension.js:277
+#: ../src/extension.js:285 ../src/extension.js:591
 #, fuzzy
 msgid "Weather"
 msgstr "Sääasetukset"
 
-#: ../src/extension.js:237
+#: ../src/extension.js:263
 msgid "No location configured"
 msgstr ""
 
-#: ../src/extension.js:245
+#: ../src/extension.js:271
 #, fuzzy
 msgid "Loading weather"
 msgstr "Ladataan huomisen säätietoja"
 
-#: ../src/extension.js:261
+#: ../src/extension.js:287
 #, fuzzy
 msgid "Weather extension ready"
 msgstr "Sääasetukset"
 
-#: ../src/extension.js:293 ../src/extension.js:366 ../src/extension.js:373
+#: ../src/extension.js:316 ../src/extension.js:390 ../src/extension.js:396
 msgid ", "
 msgstr ""
 
-#: ../src/extension.js:451
+#: ../src/extension.js:464
 msgid "Today"
 msgstr "Tänään"
 
-#: ../src/extension.js:454
+#: ../src/extension.js:467
 msgid "Tomorrow"
 msgstr "Huomenna"
 
-#: ../src/extension.js:457
+#: ../src/extension.js:470
 msgid "Yesterday"
 msgstr "Eilen"
 
-#: ../src/extension.js:639
+#: ../src/extension.js:631
 msgid "Locations"
 msgstr ""
 
-#: ../src/extension.js:643
+#: ../src/extension.js:636
 #, fuzzy
 msgid "Reload Weather Information"
 msgstr "Päivitä säätiedot"
 
-#: ../src/extension.js:648
+#: ../src/extension.js:641
 msgid "Weather Settings"
 msgstr "Sääasetukset"
 
-#: ../src/extension.js:812
+#: ../src/extension.js:793
 #, fuzzy
 msgid "No weather information"
 msgstr "Päivitä säätiedot"
 
-#: ../src/extension.js:814
+#: ../src/extension.js:795
 #, fuzzy, python-format
 msgid "No weather information for %s"
 msgstr "Päivitä säätiedot"
 
-#: ../src/extension.js:899
+#: ../src/extension.js:881
 #, fuzzy
 msgid "Feels like"
 msgstr "Tuntuu:"
 
-#: ../src/extension.js:901
+#: ../src/extension.js:883
 msgid "Visibility"
 msgstr ""
 
-#: ../src/extension.js:903
+#: ../src/extension.js:885
 #, fuzzy
 msgid "Humidity"
 msgstr "Kosteusprosentti:"
 
-#: ../src/extension.js:905
+#: ../src/extension.js:887
 #, fuzzy
 msgid "Pressure"
 msgstr "Ilmanpaine:"
 
-#: ../src/extension.js:907
+#: ../src/extension.js:889
 #, fuzzy
 msgid "Wind"
 msgstr "Tuulen nopeus:"
 
-#: ../src/extension.js:929
+#: ../src/extension.js:907
 #, fuzzy
 msgid "No forecast information"
 msgstr "Päivitä säätiedot"
 
-#: ../src/extension.js:1114
+#: ../src/extension.js:1089
 #, python-format
 msgid "%s °F"
 msgstr ""
 
-#: ../src/extension.js:1118
+#: ../src/extension.js:1092
 #, python-format
 msgid "%s °C"
 msgstr ""
 
-#: ../src/extension.js:1122
+#: ../src/extension.js:1095
 #, python-format
 msgid "%s K"
 msgstr ""
 
-#: ../src/extension.js:1128 ../src/extension.js:1186
+#: ../src/extension.js:1100 ../src/extension.js:1159
 msgid "Unknown"
 msgstr ""
 
-#: ../src/extension.js:1150 ../src/extension.js:1153
+#: ../src/extension.js:1120 ../src/extension.js:1128
 msgid "VAR"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "N"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NNE"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NE"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "ENE"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "E"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "ESE"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SE"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SSE"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "S"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "SSW"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "SW"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WSW"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "W"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WNW"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "NW"
 msgstr ""
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1132
 msgid "NNW"
 msgstr ""
 
-#: ../src/extension.js:1164
+#: ../src/extension.js:1142
 msgid "$d$s knots"
 msgstr ""
 
-#: ../src/extension.js:1168
+#: ../src/extension.js:1145
 msgid "$d$s mph"
 msgstr ""
 
-#: ../src/extension.js:1172
+#: ../src/extension.js:1148
 msgid "$d$s km/h"
 msgstr ""
 
-#: ../src/extension.js:1176
+#: ../src/extension.js:1151
 msgid "$d$s m/s"
 msgstr ""
 
-#: ../src/extension.js:1180
+#: ../src/extension.js:1154
 msgid "$dBeaufort $s"
 msgstr ""
 
-#: ../src/prefs.js:143
+#: ../src/prefs.js:138
 msgid "Temperature Unit"
 msgstr "Lämpötila"
 
-#: ../src/prefs.js:145
+#: ../src/prefs.js:140
 msgid "Wind Speed Unit"
 msgstr "Tuulen nopeuden yksikkö"
 
-#: ../src/prefs.js:147
+#: ../src/prefs.js:142
 #, fuzzy
 msgid "Pressure Unit"
 msgstr "Ilmanpaine:"
 
-#: ../src/prefs.js:149
+#: ../src/prefs.js:144
 msgid "Distance Unit"
 msgstr ""
 
-#: ../src/prefs.js:151
+#: ../src/prefs.js:146
 msgid "Position in Panel"
 msgstr "Sijainti paneelissa"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Center"
 msgstr "Keskellä"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Right"
 msgstr "Oikealla"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Left"
 msgstr "Vasemmalla"
 
-#: ../src/prefs.js:153
+#: ../src/prefs.js:148
 msgid "Wind Direction by Arrows"
 msgstr ""
 
-#: ../src/prefs.js:155
+#: ../src/prefs.js:150
 msgid "Symbolic Icons"
 msgstr "Symboliset kuvakkeet"
 
-#: ../src/prefs.js:157
+#: ../src/prefs.js:152
 msgid "Temperature in Panel"
 msgstr "Lämpötila"
 
-#: ../src/prefs.js:159
+#: ../src/prefs.js:154
 msgid "Conditions in Panel"
 msgstr "Olosuhteet paneelissa"
 
-#: ../src/prefs.js:161
+#: ../src/prefs.js:156
 msgid "Debug the extension"
 msgstr ""
 
-#: ../src/prefs.js:320
+#: ../src/prefs.js:302
 msgid "Name of the city"
 msgstr "Kaupungin nimi"
 
-#: ../src/prefs.js:378
+#: ../src/prefs.js:360
 #, python-format
 msgid "Remove %s ?"
 msgstr "Poistetaanko %s?"

@@ -9,259 +9,259 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-shell-extension-weather 0.13\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 18:16+0100\n"
+"POT-Creation-Date: 2019-09-18 00:18+0300\n"
 "PO-Revision-Date: 2014-04-04 20:26+0330\n"
 "Last-Translator: Nasrollah Noori <nanopqr@gmail.com>\n"
 "Language-Team: فارسی <> <nanopqr@gmail.com>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: fa\n"
 
-#: ../src/extension.js:235 ../src/extension.js:243 ../src/extension.js:251
-#: ../src/extension.js:259 ../src/extension.js:575
+#: ../src/extension.js:261 ../src/extension.js:269 ../src/extension.js:277
+#: ../src/extension.js:285 ../src/extension.js:591
 msgid "Weather"
 msgstr "هواشناسی"
 
-#: ../src/extension.js:237
+#: ../src/extension.js:263
 msgid "No location configured"
 msgstr "مکانی تنظیم نشده است"
 
-#: ../src/extension.js:245
+#: ../src/extension.js:271
 msgid "Loading weather"
 msgstr "بارگیری هواشناسی"
 
-#: ../src/extension.js:261
+#: ../src/extension.js:287
 msgid "Weather extension ready"
 msgstr "افزونه هواشناسی آماده است"
 
-#: ../src/extension.js:293 ../src/extension.js:366 ../src/extension.js:373
+#: ../src/extension.js:316 ../src/extension.js:390 ../src/extension.js:396
 msgid ", "
 msgstr "،"
 
-#: ../src/extension.js:451
+#: ../src/extension.js:464
 msgid "Today"
 msgstr "امروز"
 
-#: ../src/extension.js:454
+#: ../src/extension.js:467
 msgid "Tomorrow"
 msgstr "فردا"
 
-#: ../src/extension.js:457
+#: ../src/extension.js:470
 msgid "Yesterday"
 msgstr "دیروز"
 
-#: ../src/extension.js:639
+#: ../src/extension.js:631
 msgid "Locations"
 msgstr "مکان‌ها"
 
-#: ../src/extension.js:643
+#: ../src/extension.js:636
 msgid "Reload Weather Information"
 msgstr "بارگیری دوباره داده‌های هواشناسی"
 
-#: ../src/extension.js:648
+#: ../src/extension.js:641
 msgid "Weather Settings"
 msgstr "تنظیمات هواشناسی"
 
-#: ../src/extension.js:812
+#: ../src/extension.js:793
 msgid "No weather information"
 msgstr "داده‌های هواشناسی نیست"
 
-#: ../src/extension.js:814
+#: ../src/extension.js:795
 #, python-format
 msgid "No weather information for %s"
 msgstr "داده‌های هواشناسی برای «%s» نیست"
 
-#: ../src/extension.js:899
+#: ../src/extension.js:881
 msgid "Feels like"
 msgstr "همانند"
 
-#: ../src/extension.js:901
+#: ../src/extension.js:883
 msgid "Visibility"
 msgstr "دید"
 
-#: ../src/extension.js:903
+#: ../src/extension.js:885
 msgid "Humidity"
 msgstr "نمناکی"
 
-#: ../src/extension.js:905
+#: ../src/extension.js:887
 msgid "Pressure"
 msgstr "فشار"
 
-#: ../src/extension.js:907
+#: ../src/extension.js:889
 msgid "Wind"
 msgstr "باد"
 
-#: ../src/extension.js:929
+#: ../src/extension.js:907
 msgid "No forecast information"
 msgstr "داده‌های پیش‌بینی هواشناسی نیست"
 
-#: ../src/extension.js:1114
+#: ../src/extension.js:1089
 #, python-format
 msgid "%s °F"
 msgstr "%s °ف"
 
-#: ../src/extension.js:1118
+#: ../src/extension.js:1092
 #, python-format
 msgid "%s °C"
 msgstr "%s °س"
 
-#: ../src/extension.js:1122
+#: ../src/extension.js:1095
 #, python-format
 msgid "%s K"
 msgstr "%s ک"
 
-#: ../src/extension.js:1128 ../src/extension.js:1186
+#: ../src/extension.js:1100 ../src/extension.js:1159
 msgid "Unknown"
 msgstr "ناشناخته"
 
-#: ../src/extension.js:1150 ../src/extension.js:1153
+#: ../src/extension.js:1120 ../src/extension.js:1128
 msgid "VAR"
 msgstr "دگرگون"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "N"
 msgstr "ش"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NNE"
 msgstr "ش ش‌خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NE"
 msgstr "ش‌خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "ENE"
 msgstr "خ ش‌خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "E"
 msgstr "خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "ESE"
 msgstr "خ ج‌خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SE"
 msgstr "ج‌خ"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SSE"
 msgstr "ج ج‌خ"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "S"
 msgstr "ج"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "SSW"
 msgstr "ج ج‌ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "SW"
 msgstr "ج‌ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WSW"
 msgstr "ب ج‌ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "W"
 msgstr "ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WNW"
 msgstr "ب ش‌ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "NW"
 msgstr "ش‌ب"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1132
 msgid "NNW"
 msgstr "ش ش‌ب"
 
-#: ../src/extension.js:1164
+#: ../src/extension.js:1142
 msgid "$d$s knots"
 msgstr "$d$s نات"
 
-#: ../src/extension.js:1168
+#: ../src/extension.js:1145
 msgid "$d$s mph"
 msgstr "$d$s مایل/ساعت"
 
-#: ../src/extension.js:1172
+#: ../src/extension.js:1148
 msgid "$d$s km/h"
 msgstr "$d$s ک‌متر/ساعت"
 
-#: ../src/extension.js:1176
+#: ../src/extension.js:1151
 msgid "$d$s m/s"
 msgstr "$d$s متر/ثانیه"
 
-#: ../src/extension.js:1180
+#: ../src/extension.js:1154
 msgid "$dBeaufort $s"
 msgstr "$dبیوفورت $s"
 
-#: ../src/prefs.js:143
+#: ../src/prefs.js:138
 msgid "Temperature Unit"
 msgstr "واحد دما"
 
-#: ../src/prefs.js:145
+#: ../src/prefs.js:140
 msgid "Wind Speed Unit"
 msgstr "واحد سرعت باد"
 
-#: ../src/prefs.js:147
+#: ../src/prefs.js:142
 msgid "Pressure Unit"
 msgstr "واحد فشار"
 
-#: ../src/prefs.js:149
+#: ../src/prefs.js:144
 msgid "Distance Unit"
 msgstr "واحد مسافت"
 
-#: ../src/prefs.js:151
+#: ../src/prefs.js:146
 msgid "Position in Panel"
 msgstr "جای‌گاه در پنل"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Center"
 msgstr "میانه"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Right"
 msgstr "راست"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Left"
 msgstr "چپ"
 
-#: ../src/prefs.js:153
+#: ../src/prefs.js:148
 msgid "Wind Direction by Arrows"
 msgstr "راستای باد با پیکان"
 
-#: ../src/prefs.js:155
+#: ../src/prefs.js:150
 msgid "Symbolic Icons"
 msgstr "نشانه‌های نمادین"
 
-#: ../src/prefs.js:157
+#: ../src/prefs.js:152
 msgid "Temperature in Panel"
 msgstr "دما در پنل"
 
-#: ../src/prefs.js:159
+#: ../src/prefs.js:154
 msgid "Conditions in Panel"
 msgstr "چگونگی در پنل"
 
-#: ../src/prefs.js:161
+#: ../src/prefs.js:156
 msgid "Debug the extension"
 msgstr "اشکال‌زدایی افزونه"
 
-#: ../src/prefs.js:320
+#: ../src/prefs.js:302
 msgid "Name of the city"
 msgstr "نام شهر"
 
-#: ../src/prefs.js:378
+#: ../src/prefs.js:360
 #, python-format
 msgid "Remove %s ?"
 msgstr "حذف کردن %s ؟"

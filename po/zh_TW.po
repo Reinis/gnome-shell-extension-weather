@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simon 04-gnome-shell-extension-weather-452bcfe\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-29 18:16+0100\n"
+"POT-Creation-Date: 2019-09-18 00:18+0300\n"
 "PO-Revision-Date: 2012-05-13 22:41+0100\n"
 "Last-Translator: Anton Yu <anton.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional)\n"
@@ -17,248 +17,248 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/extension.js:235 ../src/extension.js:243 ../src/extension.js:251
-#: ../src/extension.js:259 ../src/extension.js:575
+#: ../src/extension.js:261 ../src/extension.js:269 ../src/extension.js:277
+#: ../src/extension.js:285 ../src/extension.js:591
 msgid "Weather"
 msgstr "氣象設定"
 
-#: ../src/extension.js:237
+#: ../src/extension.js:263
 msgid "No location configured"
 msgstr "尚未設定地點"
 
-#: ../src/extension.js:245
+#: ../src/extension.js:271
 msgid "Loading weather"
 msgstr "正在載入天氣預報 ..."
 
-#: ../src/extension.js:261
+#: ../src/extension.js:287
 msgid "Weather extension ready"
 msgstr "氣象設定"
 
-#: ../src/extension.js:293 ../src/extension.js:366 ../src/extension.js:373
+#: ../src/extension.js:316 ../src/extension.js:390 ../src/extension.js:396
 msgid ", "
 msgstr ""
 
-#: ../src/extension.js:451
+#: ../src/extension.js:464
 msgid "Today"
 msgstr "今天"
 
-#: ../src/extension.js:454
+#: ../src/extension.js:467
 msgid "Tomorrow"
 msgstr "明天"
 
-#: ../src/extension.js:457
+#: ../src/extension.js:470
 msgid "Yesterday"
 msgstr "昨天"
 
-#: ../src/extension.js:639
+#: ../src/extension.js:631
 msgid "Locations"
 msgstr "地點"
 
-#: ../src/extension.js:643
+#: ../src/extension.js:636
 msgid "Reload Weather Information"
 msgstr "重新載入氣象資訊"
 
-#: ../src/extension.js:648
+#: ../src/extension.js:641
 msgid "Weather Settings"
 msgstr "氣象設定"
 
-#: ../src/extension.js:812
+#: ../src/extension.js:793
 msgid "No weather information"
 msgstr "重新載入氣象資訊"
 
-#: ../src/extension.js:814
+#: ../src/extension.js:795
 #, fuzzy, python-format
 msgid "No weather information for %s"
 msgstr "重新載入氣象資訊"
 
-#: ../src/extension.js:899
+#: ../src/extension.js:881
 msgid "Feels like"
 msgstr "體感溫度"
 
-#: ../src/extension.js:901
+#: ../src/extension.js:883
 msgid "Visibility"
 msgstr "能見度"
 
-#: ../src/extension.js:903
+#: ../src/extension.js:885
 msgid "Humidity"
 msgstr "濕度"
 
-#: ../src/extension.js:905
+#: ../src/extension.js:887
 msgid "Pressure"
 msgstr "氣壓"
 
-#: ../src/extension.js:907
+#: ../src/extension.js:889
 msgid "Wind"
 msgstr "風力"
 
-#: ../src/extension.js:929
+#: ../src/extension.js:907
 msgid "No forecast information"
 msgstr "重新載入氣象資訊"
 
-#: ../src/extension.js:1114
+#: ../src/extension.js:1089
 #, python-format
 msgid "%s °F"
 msgstr ""
 
-#: ../src/extension.js:1118
+#: ../src/extension.js:1092
 #, python-format
 msgid "%s °C"
 msgstr ""
 
-#: ../src/extension.js:1122
+#: ../src/extension.js:1095
 #, python-format
 msgid "%s K"
 msgstr ""
 
-#: ../src/extension.js:1128 ../src/extension.js:1186
+#: ../src/extension.js:1100 ../src/extension.js:1159
 msgid "Unknown"
 msgstr "未知"
 
-#: ../src/extension.js:1150 ../src/extension.js:1153
+#: ../src/extension.js:1120 ../src/extension.js:1128
 msgid "VAR"
 msgstr ""
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "N"
 msgstr "正北"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NNE"
 msgstr "北北東"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "NE"
 msgstr "東北"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "ENE"
 msgstr "東北東"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1129
 msgid "E"
 msgstr "東"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "ESE"
 msgstr "東南東"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SE"
 msgstr "東南"
 
-#: ../src/extension.js:1153
+#: ../src/extension.js:1130
 msgid "SSE"
 msgstr "南南東"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "S"
 msgstr "正南"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1130
 msgid "SSW"
 msgstr "南南西"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "SW"
 msgstr "西南"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WSW"
 msgstr "西南西"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "W"
 msgstr "正西"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "WNW"
 msgstr "西北西"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1131
 msgid "NW"
 msgstr "西北"
 
-#: ../src/extension.js:1154
+#: ../src/extension.js:1132
 msgid "NNW"
 msgstr "北北西"
 
-#: ../src/extension.js:1164
+#: ../src/extension.js:1142
 msgid "$d$s knots"
 msgstr ""
 
-#: ../src/extension.js:1168
+#: ../src/extension.js:1145
 msgid "$d$s mph"
 msgstr ""
 
-#: ../src/extension.js:1172
+#: ../src/extension.js:1148
 msgid "$d$s km/h"
 msgstr ""
 
-#: ../src/extension.js:1176
+#: ../src/extension.js:1151
 msgid "$d$s m/s"
 msgstr ""
 
-#: ../src/extension.js:1180
+#: ../src/extension.js:1154
 msgid "$dBeaufort $s"
 msgstr ""
 
-#: ../src/prefs.js:143
+#: ../src/prefs.js:138
 msgid "Temperature Unit"
 msgstr "溫度單位"
 
-#: ../src/prefs.js:145
+#: ../src/prefs.js:140
 msgid "Wind Speed Unit"
 msgstr "風速單位"
 
-#: ../src/prefs.js:147
+#: ../src/prefs.js:142
 msgid "Pressure Unit"
 msgstr "氣壓單位"
 
-#: ../src/prefs.js:149
+#: ../src/prefs.js:144
 msgid "Distance Unit"
 msgstr "距離單位"
 
-#: ../src/prefs.js:151
+#: ../src/prefs.js:146
 msgid "Position in Panel"
 msgstr "面板位置"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Center"
 msgstr "中心"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Right"
 msgstr "右"
 
-#: ../src/prefs.js:152
+#: ../src/prefs.js:147
 msgid "Left"
 msgstr "左"
 
-#: ../src/prefs.js:153
+#: ../src/prefs.js:148
 msgid "Wind Direction by Arrows"
 msgstr "風向箭頭"
 
-#: ../src/prefs.js:155
+#: ../src/prefs.js:150
 msgid "Symbolic Icons"
 msgstr "符號顯示"
 
-#: ../src/prefs.js:157
+#: ../src/prefs.js:152
 msgid "Temperature in Panel"
 msgstr "溫度顯示"
 
-#: ../src/prefs.js:159
+#: ../src/prefs.js:154
 msgid "Conditions in Panel"
 msgstr "面板狀態"
 
-#: ../src/prefs.js:161
+#: ../src/prefs.js:156
 msgid "Debug the extension"
 msgstr "除錯資訊"
 
-#: ../src/prefs.js:320
+#: ../src/prefs.js:302
 msgid "Name of the city"
 msgstr "城市名"
 
-#: ../src/prefs.js:378
+#: ../src/prefs.js:360
 #, python-format
 msgid "Remove %s ?"
 msgstr "移除 %s"
