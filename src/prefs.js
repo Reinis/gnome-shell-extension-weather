@@ -304,6 +304,7 @@ let WeatherPrefsWidget = class WeatherExtensionPrefsWidget extends Gtk.Box {
         let entry = GWeather.LocationEntry.new(this.world);
         entry.margin_top = 12;
         entry.margin_bottom = 12;
+        entry.get_completion().set_inline_completion(false);
         let label = new Gtk.Label({label : textDialog});
 
         dialog.set_border_width(12);
